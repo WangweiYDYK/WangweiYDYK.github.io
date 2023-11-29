@@ -55,17 +55,30 @@ $x(u, v, t)=\sum_i^{n_B}\left(\mathbf{p}_i+\mathbf{v}_i t\right) \phi_i(u, v)$
 
 ## speed up sos method
 1. mixed degree
-   \\\((d _1,d_2)-truncated \ quadratic \ module\\\)
-
     独立地改变$$d_1$$和$$d_2$$
-2. SOS relaxation
+
+    \\\((d _1,d_2)-truncated \ quadratic \ module\\\)
+
+    $$
+    Q(\mathcal{G}, \mathcal{H})_{d_1, d_2}=\left\{s_0+\sum_{g \in \mathcal{G}} s_g g+\sum_{h \in \mathcal{H}} p_h h: \begin{array}{l}
+    s_0 \in \Sigma, s_g \in \Sigma_{d_1} \\
+    p_h \in \mathbb{R}[\mathbf{u}]_{d_2}
+    \end{array}\right\}
+    $$
+
+    独立地调控$$d_1$$,$$d_2$$
+2. Higher-Degree Descriptions of Equivalent Domains
+   对于不等式域，采用更高阶的表示方法
 3. 通过增加变量来降低阶数
 4. 对下界进行约束
+   对于CCD问题，其下界$$\gamma$$有固定范围
 
 ## SOS Collision Detection Certificates
 
 Intersecting Pair(IP)
+
 Earliest Collision(EC)
+
 Non-Collision(NC)
 
 ## Code Example
