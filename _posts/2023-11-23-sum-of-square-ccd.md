@@ -9,42 +9,104 @@ date: 2023-11-23 15:32 +0800
 # Sum-of-Squares Collision Detection
 
 ## Putinars Positivstellensatz Theorem
+<<<<<<< HEAD
+
+=======
+>>>>>>> 06afef078a39c3b83fcef1df3148e6be990888e1
 对于一个具有代数紧致性的域
 
 $$
 \mathbb{D}=\left\{\mathbf{u} \in \mathbb{R}^k: \forall g \in \mathcal{G}, h \in \mathcal{H}, g(\mathbf{u}) \geq 0, h(\mathbf{u})=0\right\}
 $$
 
+<<<<<<< HEAD
+任何在\\\(\mathbb{D}\\\)上严格正定的多项式函数\\\(f(\mathbf{u})\\\)都是\\\(\mathcal{Q}\left(\mathcal{G},\mathcal{H} \right)_d\\\)
+=======
 任何在$\mathbb{D}$上严格正定的多项式函数\\\(f(\mathbf{u})\\\)都是\\\(\mathcal{Q}\left(\mathcal{G},\mathcal{H} \right)_d\\\)
+>>>>>>> 06afef078a39c3b83fcef1df3148e6be990888e1
 
 $$
 Q(\mathcal{G}, \mathcal{H})_d=\left\{s_0+\sum_{g \in \mathcal{G}} s_g g+\sum_{h \in \mathcal{H}} p_h h: \begin{array}{l}s_0 \in \Sigma, s_g \in \Sigma_d \\ p_h \in \mathbb{R}[\mathbf{u}]_d\end{array}\right\}
 $$
+<<<<<<< HEAD
+
+其中
+=======
+>>>>>>> 06afef078a39c3b83fcef1df3148e6be990888e1
 
 ## Sum-of-Squares (SOS) Programming
+
 对于问题
 
 $$
 \begin{aligned} & f^*=\min _{\mathbf{u} \in \mathbb{D}} f(\mathbf{u}) \\ & \mathbf{u}^*=\underset{\mathbf{u} \in \mathbb{D}}{\arg \min } f(\mathbf{u}) \\ & \mathbb{D}=\left\{\mathbf{u} \in \mathbb{R}^k: g_i(\mathbf{u}) \geq 0, h_i(\mathbf{u})=0\right\}.\end{aligned}
 $$
 
+<<<<<<< HEAD
+其等价于一个具有多项式正性约束的凸问题
+
+$f^*=\gamma^*=\max \{\gamma: f(\mathbf{u})-\gamma$ is positive for $\mathbf{u} \in \mathbb{D}\}$
+
+但多项式正性约束是一个NP-hard问题。而将多项式约束为SOS（正性的充分条件）只需要半定矩阵约束。SOSP利用这种完备性通过d-truncated quadratic module来参数化这些多项式的子集
+
+由于$f(\mathbf{u}) - \gamma$为$Q(\mathcal{G}, \mathcal{H})_d$的元素。由Putinars Positivstellensatz Theorem可以将其relax为一个convex SDP即
+
+$$
+f_d^* = \max \{\gamma: f(\mathbf{u})-\gamma \in Q(\mathcal{G}, \mathcal{H})_d\}
+$$
+
+$$
+f_d^* \le f^*
+$$
+
+$$
+d \rightarrow \infty, f_d^* \rightarrow f^*
+$$
+=======
 $f^*=\gamma^*=\max \{\gamma: f(\mathbf{u})-\gamma$ is positive for $\mathbf{u} \in \mathbb{D}\}$.是一个NP-hard问题。由于$f(\mathbf{u}) - \gamma$为$Q(\mathcal{G}, \mathcal{H})_d$的元素。由Putinars Positivstellensatz Theorem可以将其relax为一个convex SDP即
 $f_d^* = \max \{\gamma: f(\mathbf{u})-\gamma \in Q(\mathcal{G}, \mathcal{H})_d\}$
 $f_d^* \le f^*$
 $d \rightarrow \infty, f_d^* \rightarrow f^*$
+>>>>>>> 06afef078a39c3b83fcef1df3148e6be990888e1
 
 ### SOS FORM
-$\lambda^*=\left\{\begin{array}{ll}\max _{\lambda \in \mathbb{R}} & \lambda \\ \text { s.t. } & f-\lambda-\sum_i h_i p_i-\sum_i g_i s_i \in \Sigma_d, \\ & s_i \in \Sigma_d \\ & p_i \in \mathbb{R}[\mathbf{u}]_d\end{array}\right\}$.
+
+$$
+\lambda^*=\left\{\begin{array}{ll}\max _{\lambda \in \mathbb{R}} & \lambda \\ \text { s.t. } & f-\lambda-\sum_i h_i p_i-\sum_i g_i s_i \in \Sigma_d, \\ & s_i \in \Sigma_d \\ & p_i \in \mathbb{R}[\mathbf{u}]_d\end{array}\right\}
+$$.
 
 ## Multiple Patches in One Optimization
 
-若$\mathbb{D}_1=\left\{\mathbf{u}^1: g_i^1\left(\mathbf{u}^1\right) \geq 0\right\}$,$\mathbb{D}_2=\left\{\mathbf{u}^2: g_i^2\left(\mathbf{u}^2\right) \geq 0\right\}$,则其笛卡尔积(Cartesian product)为$\begin{aligned} \mathbb{D} & =\left\{\left(\mathbf{u}^1, \mathbf{u}^2\right): g_i^1\left(\mathbf{u}^1\right) \geq 0, g_i^2\left(\mathbf{u}^2\right) \geq 0, q_j\left(\mathbf{u}^1, \mathbf{u}^2\right) \geq 0\right\} \\ & \subseteq \mathbb{D}_1 \times \mathbb{D}_2,\end{aligned}$
+对于两个域
+
+$$
+\mathbb{D}_1=\left\{\mathbf{u}^1: g_i^1\left(\mathbf{u}^1\right) \geq 0\right\}
+$$
+
+$$
+\mathbb{D}_2=\left\{\mathbf{u}^2: g_i^2\left(\mathbf{u}^2\right) \geq 0\right\}
+$$
+
+其笛卡尔积(Cartesian product)为
+
+$$
+\begin{aligned} \mathbb{D} & =\left\{\left(\mathbf{u}^1, \mathbf{u}^2\right): g_i^1\left(\mathbf{u}^1\right) \geq 0, g_i^2\left(\mathbf{u}^2\right) \geq 0, q_j\left(\mathbf{u}^1, \mathbf{u}^2\right) \geq 0\right\}  \subseteq \mathbb{D}_1 \times \mathbb{D}_2,\end{aligned}
+$$
 
 ## CCD
+<<<<<<< HEAD
+=======
 t时刻的quadratic and cubic Bezier triangle可以表示为
 $x(u, v, t)=\sum_i^{n_B}\left(\mathbf{p}_i+\mathbf{v}_i t\right) \phi_i(u, v)$
+>>>>>>> 06afef078a39c3b83fcef1df3148e6be990888e1
 
-其CCD domain由$\mathbf{u} = $
+t时刻的quadratic and cubic Bezier triangle可以表示为
+
+$$
+x(u, v, t)=\sum_i^{n_B}\left(\mathbf{p}_i+\mathbf{v}_i t\right) \phi_i(u, v)
+$$
+
+其CCD domain由$$\mathbf{u} = $$
 碰撞约束$\mathcal{H}=\left\{x_1\left(u_1, v_1, 0\right)_{x y z}-x_2\left(u_2, v_2, 0\right)_{x y z}\right\}$
 
 ## 线性路径的CCD
@@ -53,6 +115,14 @@ $x(u, v, t)=\sum_i^{n_B}\left(\mathbf{p}_i+\mathbf{v}_i t\right) \phi_i(u, v)$
 
 ### Dual Quaternion
 
+<<<<<<< HEAD
+screw space linear interpolation (ScLERP)
+
+## Method
+
+### 对SOS的加速
+
+=======
 ## speed up sos method
 1. mixed degree
     独立地改变$$d_1$$和$$d_2$$
@@ -72,12 +142,22 @@ $x(u, v, t)=\sum_i^{n_B}\left(\mathbf{p}_i+\mathbf{v}_i t\right) \phi_i(u, v)$
 3. 通过增加变量来降低阶数
 4. 对下界进行约束
    对于CCD问题，其下界$$\gamma$$有固定范围
+>>>>>>> 06afef078a39c3b83fcef1df3148e6be990888e1
 
 ## SOS Collision Detection Certificates
 
 Intersecting Pair(IP)
 
 Earliest Collision(EC)
+<<<<<<< HEAD
+Non-Collision(NC)
+
+## Example
+
+### bezier Curve的计算
+
+
+=======
 
 Non-Collision(NC)
 
@@ -109,3 +189,4 @@ F = [sos(f-lambda-[s1 s2]*gi), sos(s1), sos(s2)];
 solvesos(F,-lambda,[],[s1c;s2c;lambda]);
 value(lambda)
 ```
+>>>>>>> 06afef078a39c3b83fcef1df3148e6be990888e1
