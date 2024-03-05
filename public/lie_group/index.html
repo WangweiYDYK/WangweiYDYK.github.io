@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Lie Group - Wangwei&#39;s Home</title><meta name="Description" content="Wangwei&#39;s Home"><meta property="og:title" content="Lie Group" />
+<meta property="og:description" content="李群 李群指具有群结构的光滑微分流形，在物理上描述的是连续的对称性
+例：
+对于模为1的复数集合，其可以表示为$e^{i\theta}$，显然该集合对于乘法封闭，满足群的四个基本要求，所以说其具有群结构。
+相对应的这个集合可以在复平面上绘制成一个圆，此时，圆上的任意一点，都可以用赋予其的值$\theta$表示其坐标，其等价于一个一维流形，且其上的乘法运算是光滑的，因此这个集合是一个李群
+李代数：李群上的切空间。描述了李群的局部性质李代数由一个集合$V$，一个数域$F$ 和一个二元运算 $[,]$ 组成。如果它们满足以下几条性质，称 (V; F; [, ]) 为一个李代数，记作 g。
+封闭性: $\forall \mathbf{X}, \mathbf{Y} \in V,[\mathbf{X}, \mathbf{Y}] \in V$
+双线性: $\forall \mathbf{X}, \mathbf{Y}, \mathbf{Z} \in V, a, b \in F$ ，有$[a \mathbf{X}&#43;b \mathbf{Y}, \mathbf{Z}]=a[\mathbf{X}, \mathbf{Z}]&#43;[\mathbf{Y}, \mathbf{Z}],[\mathbf{Z}, a \mathbf{X}&#43;b \mathbf{Y}]=a[\mathbf{Z}, \mathbf{X}]&#43;b[\mathbf{Z}, \mathbf{Y}]$
+自反性: $\forall \mathbf{X} \in V,[\mathbf{X}, \mathbf{X}]=\mathbf{0}$
+雅可比等价: $\forall \mathbf{X}, \mathbf{Y}, \mathbf{Z} \in V,[\mathbf{X},[\mathbf{Y}, \mathbf{Z}]]&#43;[\mathbf{Z},[\mathbf{X}, \mathbf{Y}]]&#43;[\mathbf{Y},[\mathbf{Z}, \mathbf{X}]]=\mathbf{0}$
+其中的二元运算称为李括号，他表示了两个元素之间的差异，在$R^3$空间中上定义的叉积就是一种李括号，此时$g=(R^3,R,\times)$构成了李代数
+指数映射：将切空间上的切向量映射到流形上点的动作
+对数映射：将流形上的点映射到切空间的切向量上
+李代数 生成子 O(2) SO(2) SU(2) 对于单位四元数$a&#43;bi&#43;cj&#43;dk$ 其左乘矩阵形式等价于$\left[\begin{array}{ccc}a &amp; -b &amp; -c &amp; -d \\ b &amp; a &amp; -d &amp; c \\ c &amp; d &amp; a &amp; -b \\ d &amp; -c &amp; -b &amp; -a\end{array}\right]$，右乘矩阵等价为$\left[\begin{array}{ccc}a &amp; -b &amp; -c &amp; -d \\ b &amp; a &amp; d &amp; -c \\ c &amp; -d &amp; a &amp; b \\ d &amp; c &amp; -b &amp; a\end{array}\right]$，以右乘矩阵为例，其每个子矩阵代表了一个复数，如果将其改写为复数矩阵，形式为$\left[\begin{array}{ccc}a&#43;bi &amp; -c&#43;di\\ c &#43; di &amp; a-bi\end{array}\right]$此时，该矩阵为酉矩阵。且对于单位四元数，该矩阵的特征值为1。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/lie_group/" /><meta property="og:image" content="http://localhost:1313/logo.png" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-02-26T19:08:59+08:00" />
+<meta property="article:modified_time" content="2024-02-26T19:08:59+08:00" /><meta property="og:site_name" content="Wangwei&#39;s Home" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="http://localhost:1313/logo.png" /><meta name="twitter:title" content="Lie Group"/>
+<meta name="twitter:description" content="李群 李群指具有群结构的光滑微分流形，在物理上描述的是连续的对称性
+例：
+对于模为1的复数集合，其可以表示为$e^{i\theta}$，显然该集合对于乘法封闭，满足群的四个基本要求，所以说其具有群结构。
+相对应的这个集合可以在复平面上绘制成一个圆，此时，圆上的任意一点，都可以用赋予其的值$\theta$表示其坐标，其等价于一个一维流形，且其上的乘法运算是光滑的，因此这个集合是一个李群
+李代数：李群上的切空间。描述了李群的局部性质李代数由一个集合$V$，一个数域$F$ 和一个二元运算 $[,]$ 组成。如果它们满足以下几条性质，称 (V; F; [, ]) 为一个李代数，记作 g。
+封闭性: $\forall \mathbf{X}, \mathbf{Y} \in V,[\mathbf{X}, \mathbf{Y}] \in V$
+双线性: $\forall \mathbf{X}, \mathbf{Y}, \mathbf{Z} \in V, a, b \in F$ ，有$[a \mathbf{X}&#43;b \mathbf{Y}, \mathbf{Z}]=a[\mathbf{X}, \mathbf{Z}]&#43;[\mathbf{Y}, \mathbf{Z}],[\mathbf{Z}, a \mathbf{X}&#43;b \mathbf{Y}]=a[\mathbf{Z}, \mathbf{X}]&#43;b[\mathbf{Z}, \mathbf{Y}]$
+自反性: $\forall \mathbf{X} \in V,[\mathbf{X}, \mathbf{X}]=\mathbf{0}$
+雅可比等价: $\forall \mathbf{X}, \mathbf{Y}, \mathbf{Z} \in V,[\mathbf{X},[\mathbf{Y}, \mathbf{Z}]]&#43;[\mathbf{Z},[\mathbf{X}, \mathbf{Y}]]&#43;[\mathbf{Y},[\mathbf{Z}, \mathbf{X}]]=\mathbf{0}$
+其中的二元运算称为李括号，他表示了两个元素之间的差异，在$R^3$空间中上定义的叉积就是一种李括号，此时$g=(R^3,R,\times)$构成了李代数
+指数映射：将切空间上的切向量映射到流形上点的动作
+对数映射：将流形上的点映射到切空间的切向量上
+李代数 生成子 O(2) SO(2) SU(2) 对于单位四元数$a&#43;bi&#43;cj&#43;dk$ 其左乘矩阵形式等价于$\left[\begin{array}{ccc}a &amp; -b &amp; -c &amp; -d \\ b &amp; a &amp; -d &amp; c \\ c &amp; d &amp; a &amp; -b \\ d &amp; -c &amp; -b &amp; -a\end{array}\right]$，右乘矩阵等价为$\left[\begin{array}{ccc}a &amp; -b &amp; -c &amp; -d \\ b &amp; a &amp; d &amp; -c \\ c &amp; -d &amp; a &amp; b \\ d &amp; c &amp; -b &amp; a\end{array}\right]$，以右乘矩阵为例，其每个子矩阵代表了一个复数，如果将其改写为复数矩阵，形式为$\left[\begin{array}{ccc}a&#43;bi &amp; -c&#43;di\\ c &#43; di &amp; a-bi\end{array}\right]$此时，该矩阵为酉矩阵。且对于单位四元数，该矩阵的特征值为1。"/>
+<meta name="application-name" content="Wangwei&#39;s Home">
+<meta name="apple-mobile-web-app-title" content="Wangwei&#39;s Home"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/lie_group/" /><link rel="prev" href="http://localhost:1313/heatmethod/" /><link rel="next" href="http://localhost:1313/basic_concepts/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Lie Group",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/localhost:1313\/lie_group\/"
+        },"image": ["http:\/\/localhost:1313\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  396 ,
+        "url": "http:\/\/localhost:1313\/lie_group\/","datePublished": "2024-02-26T19:08:59+08:00","dateModified": "2024-02-26T19:08:59+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": {
+                    "@type": "ImageObject",
+                    "url": "http:\/\/localhost:1313\/images\/avatar.png",
+                    "width":  1280 ,
+                    "height":  581 
+                }},"author": {
+                "@type": "Person",
+                "name": "wangwei"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Wangwei&#39;s Home"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Wangwei&#39;s Home</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><a class="menu-item" href="/about/"> About </a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="Select Language">
+                    <i class="fa fa-globe" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/lie_group/" selected>English</option></select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Wangwei&#39;s Home"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Wangwei&#39;s Home</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a class="menu-item" href="/about/" title="">About</a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="Select Language">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/lie_group/" selected>English</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Lie Group</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="../../about" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>wangwei</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-02-26">2024-02-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;396 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#李代数">李代数</a></li>
+    <li><a href="#生成子">生成子</a></li>
+    <li><a href="#o2">O(2)</a></li>
+    <li><a href="#so2">SO(2)</a></li>
+    <li><a href="#su2">SU(2)</a></li>
+    <li><a href="#so3">SO(3)</a></li>
+    <li><a href="#从so3群推导罗德里格斯公式">从SO(3)群推导罗德里格斯公式</a></li>
+    <li><a href="#se3">SE(3)</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="李群">李群</h1>
+<p>李群指具有群结构的光滑微分流形，在物理上描述的是连续的对称性</p>
+<blockquote>
+<p>例：<br>
+对于模为1的复数集合，其可以表示为$e^{i\theta}$，显然该集合对于乘法封闭，满足群的四个基本要求，所以说其具有群结构。<br>
+相对应的这个集合可以在复平面上绘制成一个圆，此时，圆上的任意一点，都可以用赋予其的值$\theta$表示其坐标，其等价于一个一维流形，且其上的乘法运算是光滑的，因此这个集合是一个李群</p>
+</blockquote>
+<p>李代数：李群上的切空间。描述了李群的局部性质李代数由一个集合$V$，一个数域$F$ 和一个二元运算 $[,]$ 组成。如果它们满足以下几条性质，称 (V; F; [, ]) 为一个李代数，记作 g。</p>
+<blockquote>
+<p>封闭性: $\forall \mathbf{X}, \mathbf{Y} \in V,[\mathbf{X}, \mathbf{Y}] \in V$<br>
+双线性: $\forall \mathbf{X}, \mathbf{Y}, \mathbf{Z} \in V, a, b \in F$ ，有$[a \mathbf{X}+b \mathbf{Y}, \mathbf{Z}]=a[\mathbf{X}, \mathbf{Z}]+[\mathbf{Y}, \mathbf{Z}],[\mathbf{Z}, a \mathbf{X}+b \mathbf{Y}]=a[\mathbf{Z}, \mathbf{X}]+b[\mathbf{Z}, \mathbf{Y}]$<br>
+自反性: $\forall \mathbf{X} \in V,[\mathbf{X}, \mathbf{X}]=\mathbf{0}$<br>
+雅可比等价: $\forall \mathbf{X}, \mathbf{Y}, \mathbf{Z} \in V,[\mathbf{X},[\mathbf{Y}, \mathbf{Z}]]+[\mathbf{Z},[\mathbf{X}, \mathbf{Y}]]+[\mathbf{Y},[\mathbf{Z}, \mathbf{X}]]=\mathbf{0}$</p>
+</blockquote>
+<p>其中的二元运算称为李括号，他表示了两个元素之间的差异，在$R^3$空间中上定义的叉积就是一种李括号，此时$g=(R^3,R,\times)$构成了李代数</p>
+<p>指数映射：将切空间上的切向量映射到流形上点的动作</p>
+<center>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./pic/e_map.png"
+        data-srcset="./pic/e_map.png, ./pic/e_map.png 1.5x, ./pic/e_map.png 2x"
+        data-sizes="auto"
+        alt="./pic/e_map.png"
+        title="title" /></p>
+</center>
+<p>对数映射：将流形上的点映射到切空间的切向量上</p>
+<center>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./pic/log_map.png"
+        data-srcset="./pic/log_map.png, ./pic/log_map.png 1.5x, ./pic/log_map.png 2x"
+        data-sizes="auto"
+        alt="./pic/log_map.png"
+        title="title" /></p>
+</center>
+<h2 id="李代数">李代数</h2>
+<h2 id="生成子">生成子</h2>
+<h2 id="o2">O(2)</h2>
+<h2 id="so2">SO(2)</h2>
+<h2 id="su2">SU(2)</h2>
+<p>对于单位四元数$a+bi+cj+dk$
+其左乘矩阵形式等价于$\left[\begin{array}{ccc}a &amp; -b &amp; -c &amp; -d \\
+b &amp; a &amp; -d &amp; c \\
+c &amp; d &amp; a &amp; -b \\
+d &amp; -c &amp; -b &amp; -a\end{array}\right]$，右乘矩阵等价为$\left[\begin{array}{ccc}a &amp; -b &amp; -c &amp; -d \\
+b &amp; a &amp; d &amp; -c \\
+c &amp; -d &amp; a &amp; b \\
+d &amp; c &amp; -b &amp; a\end{array}\right]$，以右乘矩阵为例，其每个子矩阵代表了一个复数，如果将其改写为复数矩阵，形式为$\left[\begin{array}{ccc}a+bi &amp; -c+di\\
+c + di &amp; a-bi\end{array}\right]$此时，该矩阵为酉矩阵。且对于单位四元数，该矩阵的特征值为1。</p>
+<p>$\operatorname{SU}(2)$群是一个矩阵群，群元素为$2\times2$的幺正矩阵，且行列式为1</p>
+<h2 id="so3">SO(3)</h2>
+<p>对于旋转，它只有三个自由度，但是使用旋转矩阵就会有9个量，显然使用旋转矩阵表达旋转是冗余的，理论上可以用3个量来表示旋转.</p>
+<p>$\operatorname{SO}(3)$ 群是一个常见的李群，若将$\operatorname{SO}(3)$群视为全体三维空间中，顺时针转动任意角度的集合，有：</p>
+<p>$$\operatorname{SO}(3) \equiv \left\{\begin{array}{l|l}
+\mathcal{R}(\vec{\omega}) &amp; \begin{array}{l}
+\vec{\omega}=\omega \vec{n}, \vec{n}=(\cos \varphi \sin \theta, \sin \varphi \sin \theta, \cos \theta) \\
+\omega \in[0, \pi], \theta \in[0, \pi], \varphi \in[0,2 \pi]
+\end{array}
+\end{array}\right\}$$</p>
+<p>在式$\vec{\omega}=\omega \vec{n}$中，$\vec{n}$是旋转轴，模长为1，$\omega$是绕$\vec{n}$旋转的角度。
+$\mathcal{R}(\vec{\omega})$表示绕$\vec{\omega}$轴旋转$\omega$角度的操作。
+因此，我们可以将$\operatorname{SO}(3)$群视作由$\vec{\omega}$端点构成的半径为$\pi$的实心球</p>
+<center>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./pic/so3_sphere.png"
+        data-srcset="./pic/so3_sphere.png, ./pic/so3_sphere.png 1.5x, ./pic/so3_sphere.png 2x"
+        data-sizes="auto"
+        alt="./pic/so3_sphere.png"
+        title="title" /></p>
+</center>
+<!-- 任何$\operatorname{SO}(3)$的元素都可以表示为三个初等旋转矩阵的乘积 -->
+<h2 id="从so3群推导罗德里格斯公式">从SO(3)群推导罗德里格斯公式</h2>
+<p>对于三维旋转群$\operatorname{SO}(3)$，其集合内元素满足</p>
+<p>$$\det R=1$$
+$$R^TR=I$$
+若考虑其为时间$t$的函数，则有$\mathbf{R}(t)^T\mathbf{R}(t)=\mathbf{I}$。对其求导，有
+$$\dot{\mathbf{R}}(t) \mathbf{R}(t)^T+\mathbf{R}(t) \dot{\mathbf{R}}(t)^T=0$$
+$$\dot{\mathbf{R}}(t) \mathbf{R}(t)^T=-\mathbf{R}(t) \dot{\mathbf{R}}(t)^T$$
+不难发现，$\mathbf{R}(t) \dot{\mathbf{R}}(t)^T$是一个反对称矩阵。因此，我们可以将其记作${\mathbf{A}}$，对于这个$3\times 3$反对称矩阵，其对角线元素为0，因此其只有三个自由度，可以将其对应于三维向量$\mathbf{a} = [a_1, a_2, a_3]^T$，因此对于矩阵A我们可以将其表示为：
+$$\mathbf{a}^{\wedge} = \mathbf{A}=\begin{bmatrix}
+0 &amp; -a_3 &amp; a_2 \\
+a_3 &amp; 0 &amp; -a_1 \\
+-a_2 &amp; a_1 &amp; 0
+\end{bmatrix}$$
+其中$\mathbf{a}^{\wedge}$表示$\mathbf{a}$所对应的反对称矩阵。因此我们使用$\phi(t)^{\wedge}$对应$\dot{\mathbf{R}}(t) \mathbf{R}(t)^T$,即：
+$$\dot{\mathbf{R}}(t) \mathbf{R}(t)^T=\phi(t)^{\wedge}$$
+此时，$$\dot{\mathbf{R}}(t)=\phi(t)^{\wedge} \mathbf{R}(t)=\left[\begin{array}{ccc}0 &amp; -\phi_3 &amp; \phi_2 \\ \phi_3 &amp; 0 &amp; -\phi_1 \\ -\phi_2 &amp; \phi_1 &amp; 0\end{array}\right] \mathbf{R}(t)$$
+不难发现其对应于关于$\mathbf{R}$的微分方程：
+$$\mathbf{R}(t)=\exp \left(\phi(t)^{\wedge}\right) \mathbf{R}\left(t_0\right)$$</p>
+<p>任意矩阵的指数映射可以使用泰勒展开进行近似，对于$\exp \left(\phi(t)^{\wedge}\right)$，我们可以使用泰勒展开进行近似：
+$$\exp \left(\phi(t)^{\wedge}\right)=\mathbf{I}+\phi(t)^{\wedge}+\frac{\left(\phi(t)^{\wedge}\right)^2}{2 !}+\frac{\left(\phi(t)^{\wedge}\right)^3}{3 !}+\cdots$$</p>
+<p>对于三维向量$\phi$，可以使用,假设其模长为$\theta$,方向为$a$，即$\phi=\theta {a}$，因此$\phi^{\wedge}=\theta {a}^{\wedge}$。
+且有两个性质：
+$$
+\begin{aligned}
+&amp; a^{\wedge} a^{\wedge}=a a^T-I \\
+&amp; a^{\wedge} a^{\wedge} a^{\wedge}=-a^{\wedge}
+\end{aligned}
+$$
+因此上式可展开为：
+$$
+\begin{aligned}
+&amp; \mathbf{R}=\exp \left(\phi^{\wedge}\right)=\exp \left(\theta a^{\wedge}\right)=\sum_{n=0}^{\infty} \frac{1}{n !}\left(\theta a^{\wedge}\right)^n \\
+&amp; =I+\theta a^{\wedge}+\frac{1}{2 !} \theta^2 a^{\wedge} a^{\wedge}+\frac{1}{3 !} \theta^3 a^{\wedge} a^{\wedge} a^{\wedge}+\frac{1}{4 !} \theta^4\left(a^{\wedge}\right)^4+\ldots \\
+&amp; =a a^T-a^{\wedge} a^{\wedge}+\theta a^{\wedge}+\frac{1}{2 !} \theta^2 a^{\wedge} a^{\wedge}-\frac{1}{3 !} \theta^3 a^{\wedge}-\frac{1}{4 !} \theta^3\left(a^{\wedge}\right)^2+\ldots \\
+&amp; =a a^T+\left(\theta-\frac{1}{3 !} \theta^3+\frac{1}{5 !} \theta^5-\ldots\right) a^{\wedge}-\left(1-\frac{1}{2 !} \theta^2+\frac{1}{4 !} \theta^4-\ldots\right) a^{\wedge} a^{\wedge} \\
+&amp; =a^{\wedge} a^{\wedge}+I \sin \theta a^{\wedge}-\cos \theta a^{\wedge} a^{\wedge} \\
+&amp; =(1-\cos \theta) a^{\wedge} a^{\wedge}+I+\sin \theta a^{\wedge} \\
+&amp; =\cos \theta I+(1-\cos \theta) a a^T+\sin \theta a^{\wedge}
+\end{aligned}
+$$</p>
+<p>$\operatorname{SO}(3)$李代数：物理意义为旋转向量
+$$
+\mathfrak{so}(3)=\left\{\phi \in \mathbb{R}^3, \boldsymbol{\Phi}=\boldsymbol{\phi}^{\wedge} \in \mathbb{R}^{3 \times 3}\right\} .
+$$</p>
+<blockquote>
+<p>四元数插值
+Nlerp
+Slerp</p>
+</blockquote>
+<p>$\operatorname{SU}(2)$</p>
+<h2 id="se3">SE(3)</h2>
+<p>$\operatorname{SE(3)}$群是一个六维李群，它是三维旋转群$\operatorname{SO(3)}$和三维平移群$\mathbb{R}^3$的直积，即：</p>
+<p>$$\begin{equation}
+\operatorname{SE(3)}= \left\{\left[\begin{array}{ccc}\mathbf{R} &amp; \mathbf{P} \\ \mathbf{0} &amp; 1\end{array}\right]\mathbf{P} \in \mathbb{R}^3, \mathbf{R} \in \operatorname{SO(3)}    \right\}
+\end{equation}$$</p>
+<p>作为矩阵李群，$\operatorname{SE(3)}$代表一种齐次坐标变换，可以代表某种刚体运动的集合</p>
+<blockquote>
+<p>对偶四元数插值：
+$$
+\operatorname{DQLERP}\left(Q_0, Q_1, t\right):=\frac{Q_0+t\left(Q_1-Q_0\right)}{\left||Q_0+t\left(Q_1-Q_0\right)|\right|}
+$$
+$\operatorname{ScLERP}$插值，SE(3)中Q0到Q1的测地线</p>
+</blockquote>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-02-26</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://localhost:1313/lie_group/" data-title="Lie Group"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://localhost:1313/lie_group/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/lie_group/" data-title="Lie Group"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://localhost:1313/lie_group/" data-title="Lie Group"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://localhost:1313/lie_group/" data-title="Lie Group"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/heatmethod/" class="prev" rel="prev" title="Heat Method for Geodesic"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Heat Method for Geodesic</a>
+            <a href="/basic_concepts/" class="next" rel="next" title="Abstract Algebra">Abstract Algebra<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.123.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="../../about" target="_blank">wangwei</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
