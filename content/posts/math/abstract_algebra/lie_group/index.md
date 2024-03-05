@@ -2,6 +2,8 @@
 title = 'Lie Group'
 date = 2024-02-26T19:08:59+08:00
 draft = false
+tags = ['math']
+categories = ["math"]
 +++
 
 # 李群
@@ -155,3 +157,5 @@ $$
 \operatorname{DQLERP}\left(Q_0, Q_1, t\right):=\frac{Q_0+t\left(Q_1-Q_0\right)}{\left\||Q_0+t\left(Q_1-Q_0\right)|\right\|}
 $$
 >$\operatorname{ScLERP}$插值，SE(3)中Q0到Q1的测地线
+
+## 李群的旋转插值

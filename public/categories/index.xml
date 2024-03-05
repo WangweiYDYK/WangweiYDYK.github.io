@@ -4,5 +4,29 @@
         <link>http://localhost:1313/categories/</link>
         <description>Categories - Category - Wangwei&#39;s Home</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>1028963346@qq.com (wangwei)</managingEditor>
-            <webMaster>1028963346@qq.com (wangwei)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><atom:link href="http://localhost:1313/categories/" rel="self" type="application/rss+xml" /></channel>
+            <webMaster>1028963346@qq.com (wangwei)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 26 Feb 2024 19:08:59 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/categories/" rel="self" type="application/rss+xml" /><item>
+    <title>Math</title>
+    <link>http://localhost:1313/categories/math/</link>
+    <pubDate>Mon, 26 Feb 2024 19:08:59 &#43;0800</pubDate>
+    <author>wangwei</author>
+    <guid>http://localhost:1313/categories/math/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>GPU</title>
+    <link>http://localhost:1313/categories/gpu/</link>
+    <pubDate>Mon, 29 Jan 2024 11:23:09 &#43;0800</pubDate>
+    <author>wangwei</author>
+    <guid>http://localhost:1313/categories/gpu/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Algorithm</title>
+    <link>http://localhost:1313/categories/algorithm/</link>
+    <pubDate>Fri, 26 Jan 2024 20:51:27 &#43;0800</pubDate>
+    <author>wangwei</author>
+    <guid>http://localhost:1313/categories/algorithm/</guid>
+    <description><![CDATA[]]></description>
+</item>
+</channel>
 </rss>

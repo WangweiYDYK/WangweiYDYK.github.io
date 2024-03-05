@@ -2,6 +2,8 @@
 title = 'Abstract Algebra'
 date = 2024-02-26T19:08:59+08:00
 draft = false
+tags = ['math']
+categories = ["math"]
 +++
 
 
@@ -37,18 +39,34 @@ draft = false
 > 例1：$f(x)=x^2$是一个从实数到非负实数的同态。\
 > 例2：C3循环群和S3交换群同态，C3循环群和C6循环群同态<center>![图源自visual group theory](./pic/homomorphism_2.png)</center>
 
-
-
 ## 1.3 常见群
 
-交换群
-循环群
+常见矩阵群：
+一般线性群$GL(n)$:其单位元为单位矩阵，逆元为一个矩阵的逆矩阵。
 
-常见矩阵群：\
-一般线性群$GL(n)$:\
-特殊正交群$SO(n)$:$SO(n) = {A \in GL(n) | AAT = I, det(\mathbf(R)) = 1}$\
-特殊欧式群$SE(n)$:\
+特殊正交群$SO(n)$:
+    $SO(n) = {A \in GL(n) | AAT = I, det(\mathbf(R)) = 1}$
+
+特殊欧式群$SE(n)$:
+
 特殊射影群$SP(n)$
+
+循环群：
+<p align="center">
+  <img src="./pic/cyclic_group.png" alt="cyclic group">
+</p>
+交换群
+<p align="center">
+  <img src="./pic/alternating_group.png" alt="cyclic group">
+</p>
+
+对称群：n个对象所有的重新排列组成对称群$S_n$,可参考(https://zhuanlan.zhihu.com/p/402197369)
+<p align="center">
+  <img src="./pic/symmetric_group.png" alt="cyclic group">
+</p>
+变换群
+
+置换群
 
 
 ## 环

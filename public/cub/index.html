@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Reduction - Wangwei&#39;s Home</title><meta name="Description" content="Wangwei&#39;s Home"><meta property="og:title" content="Reduction" />
+<meta property="og:description" content="Reduction 概念 可以将Reduce操作视为计算$x = x_0\oplus x_1\oplus x_2\oplus &hellip;\oplus x_n$，$\oplus $作为算子可以表示为乘法，加法，最小值等运算
+简易版Reduce
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 //一个基础的Reduce操作,源自NVDIA的教程 __global__ void reduce0(int* g_idata, int* g_odata) { extern __shared__ int sdata[]; unsigned int tid = threadIdx.x; unsigned int i = blockIdx.x*blockDim.x &#43; threadIdx.x; sdata[tid] = g_idata[i]; __syncthreads(); for(unsigned int s=1; s &lt; blockDim.x; s *= 2) { // 此处有warp divergent，并非所有thread都可以进入这个分支中，会造成硬件资源的浪费 // 其次取模操作需要消耗大量计算时间 if(tid % (2*s) == 0) { sdata[tid] &#43;= sdata[tid &#43; s]; } __syncthreads(); } if(tid == 0) { g_odata[blockIdx." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/cub/" /><meta property="og:image" content="http://localhost:1313/logo.png" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-01-29T11:23:09+08:00" />
+<meta property="article:modified_time" content="2024-01-29T11:23:09+08:00" /><meta property="og:site_name" content="Wangwei&#39;s Home" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="http://localhost:1313/logo.png" /><meta name="twitter:title" content="Reduction"/>
+<meta name="twitter:description" content="Reduction 概念 可以将Reduce操作视为计算$x = x_0\oplus x_1\oplus x_2\oplus &hellip;\oplus x_n$，$\oplus $作为算子可以表示为乘法，加法，最小值等运算
+简易版Reduce
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 //一个基础的Reduce操作,源自NVDIA的教程 __global__ void reduce0(int* g_idata, int* g_odata) { extern __shared__ int sdata[]; unsigned int tid = threadIdx.x; unsigned int i = blockIdx.x*blockDim.x &#43; threadIdx.x; sdata[tid] = g_idata[i]; __syncthreads(); for(unsigned int s=1; s &lt; blockDim.x; s *= 2) { // 此处有warp divergent，并非所有thread都可以进入这个分支中，会造成硬件资源的浪费 // 其次取模操作需要消耗大量计算时间 if(tid % (2*s) == 0) { sdata[tid] &#43;= sdata[tid &#43; s]; } __syncthreads(); } if(tid == 0) { g_odata[blockIdx."/>
+<meta name="application-name" content="Wangwei&#39;s Home">
+<meta name="apple-mobile-web-app-title" content="Wangwei&#39;s Home"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/cub/" /><link rel="prev" href="http://localhost:1313/gpu-distance/" /><link rel="next" href="http://localhost:1313/lie_group/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Reduction",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/localhost:1313\/cub\/"
+        },"image": ["http:\/\/localhost:1313\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "GPU","wordcount":  1444 ,
+        "url": "http:\/\/localhost:1313\/cub\/","datePublished": "2024-01-29T11:23:09+08:00","dateModified": "2024-01-29T11:23:09+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": {
+                    "@type": "ImageObject",
+                    "url": "http:\/\/localhost:1313\/images\/avatar.png",
+                    "width":  1280 ,
+                    "height":  581 
+                }},"author": {
+                "@type": "Person",
+                "name": "wangwei"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Wangwei&#39;s Home"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Wangwei&#39;s Home</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><a class="menu-item" href="/about/"> About </a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="Select Language">
+                    <i class="fa fa-globe" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/cub/" selected>English</option></select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Wangwei&#39;s Home"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Wangwei&#39;s Home</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a class="menu-item" href="/about/" title="">About</a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="Select Language">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/cub/" selected>English</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Reduction</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="../../about" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>wangwei</a></span>&nbsp;<span class="post-category">included in <a href="/categories/gpu/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>GPU</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-01-29">2024-01-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1444 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;7 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#概念">概念</a></li>
+    <li><a href="#调用cub库执行reduce">调用CUB库执行Reduce</a></li>
+    <li><a href="#cub库的reduce操作">CUB库的Reduce操作</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="reduction">Reduction</h1>
+<h2 id="概念">概念</h2>
+<p>可以将Reduce操作视为计算$x = x_0\oplus x_1\oplus x_2\oplus &hellip;\oplus x_n$，$\oplus $作为算子可以表示为乘法，加法，最小值等运算</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./pic/tree_reduce.png"
+        data-srcset="./pic/tree_reduce.png, ./pic/tree_reduce.png 1.5x, ./pic/tree_reduce.png 2x"
+        data-sizes="auto"
+        alt="./pic/tree_reduce.png"
+        title="title" /></p>
+<p>简易版Reduce</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">//一个基础的Reduce操作,源自NVDIA的教程
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">__global__</span> <span class="kt">void</span> <span class="nf">reduce0</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span> <span class="n">g_idata</span><span class="p">,</span> <span class="kt">int</span><span class="o">*</span> <span class="n">g_odata</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">extern</span> <span class="n">__shared__</span> <span class="kt">int</span> <span class="n">sdata</span><span class="p">[];</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">tid</span> <span class="o">=</span> <span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="o">*</span><span class="n">blockDim</span><span class="p">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sdata</span><span class="p">[</span><span class="n">tid</span><span class="p">]</span> <span class="o">=</span> <span class="n">g_idata</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="n">__syncthreads</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">s</span> <span class="o">&lt;</span> <span class="n">blockDim</span><span class="p">.</span><span class="n">x</span><span class="p">;</span> <span class="n">s</span> <span class="o">*=</span> <span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>   <span class="c1">// 此处有warp divergent，并非所有thread都可以进入这个分支中，会造成硬件资源的浪费
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// 其次取模操作需要消耗大量计算时间
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span><span class="p">(</span><span class="n">tid</span> <span class="o">%</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>        
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">sdata</span><span class="p">[</span><span class="n">tid</span><span class="p">]</span> <span class="o">+=</span> <span class="n">sdata</span><span class="p">[</span><span class="n">tid</span> <span class="o">+</span> <span class="n">s</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">__syncthreads</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">tid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">g_odata</span><span class="p">[</span><span class="n">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">sdata</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改了if语句以尽量消除warp divergent。但是会产生bank conflict（即不同thread同时访问shared memory下的同一bank）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">__global__</span> <span class="kt">void</span> <span class="nf">reduce2</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">extern</span> <span class="n">__shared__</span> <span class="kt">int</span> <span class="n">sdata</span><span class="p">[];</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">tid</span> <span class="o">=</span> <span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="o">*</span><span class="n">blockDim</span><span class="p">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sdata</span><span class="p">[</span><span class="n">tid</span><span class="p">]</span> <span class="o">=</span> <span class="n">g_idata</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="n">__syncthreads</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">s</span> <span class="o">&lt;</span> <span class="n">blockDim</span><span class="p">.</span><span class="n">x</span><span class="p">;</span> <span class="n">s</span> <span class="o">*=</span> <span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>   
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">s</span> <span class="o">*</span> <span class="n">tid</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">index</span> <span class="o">&lt;</span> <span class="n">blockDim</span><span class="p">.</span><span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// 会发生bank conflict
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="c1">// 例如在第一次循环中，对于tid为0的线程，会访问sdata的0和1位置
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="c1">// 对于第16个线程，会访问sdata的32和33的位置
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="c1">// 0和32位于bank0位置，1和33位于bank1的位置，会产生冲突
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="c1">// 因此需要改变对数组的读取方式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">sdata</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">+=</span> <span class="n">sdata</span><span class="p">[</span><span class="n">index</span><span class="o">+</span><span class="n">s</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">__syncthreads</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">tid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">g_odata</span><span class="p">[</span><span class="n">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">sdata</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改对数组的遍历方式以消除bank conflict</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">__global__</span> <span class="kt">void</span> <span class="nf">reduce3</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">extern</span> <span class="n">__shared__</span> <span class="kt">int</span> <span class="n">sdata</span><span class="p">[];</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">tid</span> <span class="o">=</span> <span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="o">*</span><span class="n">blockDim</span><span class="p">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sdata</span><span class="p">[</span><span class="n">tid</span><span class="p">]</span> <span class="o">=</span> <span class="n">g_idata</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="n">__syncthreads</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">s</span> <span class="o">=</span> <span class="n">blockDim</span><span class="p">.</span><span class="n">x</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span> <span class="n">s</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span> <span class="n">s</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>   
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">tid</span> <span class="o">&lt;</span> <span class="n">s</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">sdata</span><span class="p">[</span><span class="n">tid</span><span class="p">]</span> <span class="o">+=</span> <span class="n">sdata</span><span class="p">[</span><span class="n">tid</span> <span class="o">+</span> <span class="n">s</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">__syncthreads</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">tid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">g_odata</span><span class="p">[</span><span class="n">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">sdata</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>后续优化 continue&hellip;</p>
+<h2 id="调用cub库执行reduce">调用CUB库执行Reduce</h2>
+<p>CUB库是一个用于GPU的基本操作库，其中包含了一些基本的操作，如Reduce、Scan等。</p>
+<p>CUB的Reduce操作可以分为BlockReduce，DeviceReduce和WarpReduce。
+DeviceReduce的主体思路是调用两次Reduce操作，第一次在block上进行Reduce，将结果计入<code>d_out</code>,然后再进行一次Reduce获得值。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cub/cub.cuh&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="n">size_t</span> <span class="n">utils</span><span class="o">::</span><span class="n">cubTempStorageBytes</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="o">*</span><span class="n">utils</span><span class="o">::</span><span class="n">cubTempStorage</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">void</span> <span class="o">*</span><span class="n">cubTempStorage</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="n">size_t</span> <span class="n">cubTempStorageBytes</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">utils</span><span class="o">::</span><span class="n">allocCubTemp</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;CUB use mem: %d bytes</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">cubTempStorageBytes</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">checkCudaErrors</span><span class="p">(</span><span class="n">cudaMalloc</span><span class="p">((</span><span class="kt">void</span> <span class="o">**</span><span class="p">)</span><span class="o">&amp;</span><span class="n">cubTempStorage</span><span class="p">,</span> <span class="n">cubTempStorageBytes</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)));</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">utils</span><span class="o">::</span><span class="n">maxReduceRegist</span><span class="p">(</span><span class="kt">int</span> <span class="n">num_items</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">T</span> <span class="o">*</span><span class="n">d_in</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">T</span> <span class="o">*</span><span class="n">d_out</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="o">*</span><span class="n">storage</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">size_t</span> <span class="n">storage_bytes</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cub</span><span class="o">::</span><span class="n">DeviceReduce</span><span class="o">::</span><span class="n">Max</span><span class="p">(</span><span class="n">storage</span><span class="p">,</span> <span class="n">storage_bytes</span><span class="p">,</span> <span class="n">d_in</span><span class="p">,</span> <span class="n">d_out</span><span class="p">,</span> <span class="n">num_items</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">storage_bytes</span> <span class="o">&gt;</span> <span class="n">cubTempStorageBytes</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cubTempStorageBytes</span> <span class="o">=</span> <span class="n">storage_bytes</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">utils</span><span class="o">::</span><span class="n">maxReduce</span><span class="p">(</span><span class="n">T</span> <span class="o">*</span><span class="n">d_in</span><span class="p">,</span> <span class="n">T</span> <span class="o">*</span><span class="n">d_out</span><span class="p">,</span> <span class="kt">int</span> <span class="n">num_items</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cub</span><span class="o">::</span><span class="n">DeviceReduce</span><span class="o">::</span><span class="n">Max</span><span class="p">(</span><span class="n">cubTempStorage</span><span class="p">,</span> <span class="n">cubTempStorageBytes</span><span class="p">,</span> <span class="n">d_in</span><span class="p">,</span> <span class="n">d_out</span><span class="p">,</span> <span class="n">num_items</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="cub库的reduce操作">CUB库的Reduce操作</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">typename</span>                    <span class="n">InputIteratorT</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="k">typename</span>                    <span class="n">OutputIteratorT</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="n">CUB_RUNTIME_FUNCTION</span>
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="n">cudaError_t</span> <span class="n">Max</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span>                        <span class="o">*</span><span class="n">d_temp_storage</span><span class="p">,</span>                    <span class="c1">///&lt; [in] Device-accessible allocation of temporary storage.  When NULL, the required allocation size is written to \p temp_storage_bytes and no work is done.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">size_t</span>                      <span class="o">&amp;</span><span class="n">temp_storage_bytes</span><span class="p">,</span>                <span class="c1">///&lt; [in,out] Reference to size in bytes of \p d_temp_storage allocation
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">InputIteratorT</span>              <span class="n">d_in</span><span class="p">,</span>                               <span class="c1">///&lt; [in] Pointer to the input sequence of data items
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">OutputIteratorT</span>             <span class="n">d_out</span><span class="p">,</span>                              <span class="c1">///&lt; [out] Pointer to the output aggregate
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">int</span>                         <span class="n">num_items</span><span class="p">,</span>                          <span class="c1">///&lt; [in] Total number of input items (i.e., length of \p d_in)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">cudaStream_t</span>                <span class="n">stream</span>              <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>            <span class="c1">///&lt; [in] &lt;b&gt;[optional]&lt;/b&gt; CUDA stream to launch kernels within.  Default is stream&lt;sub&gt;0&lt;/sub&gt;.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">bool</span>                        <span class="n">debug_synchronous</span>   <span class="o">=</span> <span class="nb">false</span><span class="p">)</span>        <span class="c1">///&lt; [in] &lt;b&gt;[optional]&lt;/b&gt; Whether or not to synchronize the stream after every kernel launch to check for errors.  Also causes launch configurations to be printed to the console.  Default is \p false.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Signed integer type for global offsets
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">typedef</span> <span class="kt">int</span> <span class="n">OffsetT</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// The input value type
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">typedef</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">iterator_traits</span><span class="o">&lt;</span><span class="n">InputIteratorT</span><span class="o">&gt;::</span><span class="n">value_type</span> <span class="n">InputT</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 此处为入口
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="n">DispatchReduce</span><span class="o">&lt;</span><span class="n">InputIteratorT</span><span class="p">,</span> <span class="n">OutputIteratorT</span><span class="p">,</span> <span class="n">OffsetT</span><span class="p">,</span> <span class="n">cub</span><span class="o">::</span><span class="n">Max</span><span class="o">&gt;::</span><span class="n">Dispatch</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">d_temp_storage</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">temp_storage_bytes</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">d_in</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">d_out</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">num_items</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cub</span><span class="o">::</span><span class="n">Max</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Traits</span><span class="o">&lt;</span><span class="n">InputT</span><span class="o">&gt;::</span><span class="n">Lowest</span><span class="p">(),</span>    <span class="c1">// replace with std::numeric_limits&lt;T&gt;::lowest() when C++11 support is more prevalent
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">stream</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">debug_synchronous</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">    <span class="n">CUB_RUNTIME_FUNCTION</span> <span class="n">__forceinline__</span>
+</span></span><span class="line"><span class="cl">    <span class="k">static</span> <span class="n">cudaError_t</span> <span class="nf">Dispatch</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">void</span>            <span class="o">*</span><span class="n">d_temp_storage</span><span class="p">,</span>                    <span class="c1">///&lt; [in] Device-accessible allocation of temporary storage.  When NULL, the required allocation size is written to \p temp_storage_bytes and no work is done.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">size_t</span>          <span class="o">&amp;</span><span class="n">temp_storage_bytes</span><span class="p">,</span>                <span class="c1">///&lt; [in,out] Reference to size in bytes of \p d_temp_storage allocation
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">InputIteratorT</span>  <span class="n">d_in</span><span class="p">,</span>                               <span class="c1">///&lt; [in] Pointer to the input sequence of data items
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">OutputIteratorT</span> <span class="n">d_out</span><span class="p">,</span>                              <span class="c1">///&lt; [out] Pointer to the output aggregate
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">OffsetT</span>         <span class="n">num_items</span><span class="p">,</span>                          <span class="o">///&lt;</span> <span class="p">[</span><span class="n">in</span><span class="p">]</span> <span class="n">Total</span> <span class="n">number</span> <span class="n">of</span> <span class="n">input</span> <span class="n">items</span> <span class="p">(</span><span class="n">i</span><span class="p">.</span><span class="n">e</span><span class="p">.,</span> <span class="n">length</span> <span class="n">of</span> <span class="err">\</span><span class="n">p</span> <span class="n">d_in</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ReductionOpT</span>    <span class="n">reduction_op</span><span class="p">,</span>                       <span class="c1">///&lt; [in] Binary reduction functor
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">OutputT</span>         <span class="n">init</span><span class="p">,</span>                               <span class="c1">///&lt; [in] The initial value of the reduction
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">cudaStream_t</span>    <span class="n">stream</span><span class="p">,</span>                             <span class="c1">///&lt; [in] &lt;b&gt;[optional]&lt;/b&gt; CUDA stream to launch kernels within.  Default is stream&lt;sub&gt;0&lt;/sub&gt;.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">bool</span>            <span class="n">debug_synchronous</span><span class="p">)</span>                  <span class="c1">///&lt; [in] &lt;b&gt;[optional]&lt;/b&gt; Whether or not to synchronize the stream after every kernel launch to check for errors.  Also causes launch configurations to be printed to the console.  Default is \p false.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">typedef</span> <span class="k">typename</span> <span class="n">DispatchReduce</span><span class="o">::</span><span class="n">MaxPolicy</span> <span class="n">MaxPolicyT</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">cudaError</span> <span class="n">error</span> <span class="o">=</span> <span class="n">cudaSuccess</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">do</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// Get PTX version
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="kt">int</span> <span class="n">ptx_version</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">CubDebug</span><span class="p">(</span><span class="n">error</span> <span class="o">=</span> <span class="n">PtxVersion</span><span class="p">(</span><span class="n">ptx_version</span><span class="p">)))</span> <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1">// Create dispatch functor
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">DispatchReduce</span> <span class="n">dispatch</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="n">d_temp_storage</span><span class="p">,</span> <span class="n">temp_storage_bytes</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">d_in</span><span class="p">,</span> <span class="n">d_out</span><span class="p">,</span> <span class="n">num_items</span><span class="p">,</span> <span class="n">reduction_op</span><span class="p">,</span> <span class="n">init</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">stream</span><span class="p">,</span> <span class="n">debug_synchronous</span><span class="p">,</span> <span class="n">ptx_version</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1">// Dispatch to chained policy
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">if</span> <span class="p">(</span><span class="n">CubDebug</span><span class="p">(</span><span class="n">error</span> <span class="o">=</span> <span class="n">MaxPolicyT</span><span class="o">::</span><span class="n">Invoke</span><span class="p">(</span><span class="n">ptx_version</span><span class="p">,</span> <span class="n">dispatch</span><span class="p">)))</span> <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">error</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">    <span class="c1">/// Invocation
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">ActivePolicyT</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">CUB_RUNTIME_FUNCTION</span> <span class="n">__forceinline__</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cudaError_t</span> <span class="n">Invoke</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">typedef</span> <span class="k">typename</span> <span class="n">ActivePolicyT</span><span class="o">::</span><span class="n">SingleTilePolicy</span>    <span class="n">SingleTilePolicyT</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">typedef</span> <span class="k">typename</span> <span class="n">DispatchReduce</span><span class="o">::</span><span class="n">MaxPolicy</span>          <span class="n">MaxPolicyT</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// Force kernel code-generation in all compiler passes
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="n">num_items</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="n">SingleTilePolicyT</span><span class="o">::</span><span class="n">BLOCK_THREADS</span> <span class="o">*</span> <span class="n">SingleTilePolicyT</span><span class="o">::</span><span class="n">ITEMS_PER_THREAD</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// Small, single tile size
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">return</span> <span class="n">InvokeSingleTile</span><span class="o">&lt;</span><span class="n">ActivePolicyT</span><span class="o">&gt;</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="n">DeviceReduceSingleTileKernel</span><span class="o">&lt;</span><span class="n">MaxPolicyT</span><span class="p">,</span> <span class="n">InputIteratorT</span><span class="p">,</span> <span class="n">OutputIteratorT</span><span class="p">,</span> <span class="n">OffsetT</span><span class="p">,</span> <span class="n">ReductionOpT</span><span class="p">,</span> <span class="n">OutputT</span><span class="o">&gt;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// Regular size
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">return</span> <span class="n">InvokePasses</span><span class="o">&lt;</span><span class="n">ActivePolicyT</span><span class="o">&gt;</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="n">DeviceReduceKernel</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">DispatchReduce</span><span class="o">::</span><span class="n">MaxPolicy</span><span class="p">,</span> <span class="n">InputIteratorT</span><span class="p">,</span> <span class="n">OutputT</span><span class="o">*</span><span class="p">,</span> <span class="n">OffsetT</span><span class="p">,</span> <span class="n">ReductionOpT</span><span class="o">&gt;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">DeviceReduceSingleTileKernel</span><span class="o">&lt;</span><span class="n">MaxPolicyT</span><span class="p">,</span> <span class="n">OutputT</span><span class="o">*</span><span class="p">,</span> <span class="n">OutputIteratorT</span><span class="p">,</span> <span class="n">OffsetT</span><span class="p">,</span> <span class="n">ReductionOpT</span><span class="p">,</span> <span class="n">OutputT</span><span class="o">&gt;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>此处为CUB库中Reduce操作的核心函数，以<code>InvokePasses</code>为例</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">    <span class="c1">//------------------------------------------------------------------------------
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// Normal problem size invocation (two-pass)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//------------------------------------------------------------------------------
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1">/// Invoke two-passes to reduce
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">template</span> <span class="o">&lt;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">typename</span>                <span class="n">ActivePolicyT</span><span class="p">,</span>              <span class="c1">///&lt; Umbrella policy active for the target device
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">typename</span>                <span class="n">ReduceKernelT</span><span class="p">,</span>              <span class="c1">///&lt; Function type of cub::DeviceReduceKernel
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">typename</span>                <span class="n">SingleTileKernelT</span><span class="o">&gt;</span>          <span class="c1">///&lt; Function type of cub::DeviceReduceSingleTileKernel
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">CUB_RUNTIME_FUNCTION</span> <span class="n">__forceinline__</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cudaError_t</span> <span class="n">InvokePasses</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ReduceKernelT</span>           <span class="n">reduce_kernel</span><span class="p">,</span>          <span class="c1">///&lt; [in] Kernel function pointer to parameterization of cub::DeviceReduceKernel
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">SingleTileKernelT</span>       <span class="n">single_tile_kernel</span><span class="p">)</span>     <span class="c1">///&lt; [in] Kernel function pointer to parameterization of cub::DeviceReduceSingleTileKernel
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#ifndef CUB_RUNTIME_ENABLED
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>        <span class="p">(</span><span class="kt">void</span><span class="p">)</span>                  <span class="n">reduce_kernel</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="kt">void</span><span class="p">)</span>                  <span class="n">single_tile_kernel</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// Kernel launch not supported from this device
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">return</span> <span class="nf">CubDebug</span><span class="p">(</span><span class="n">cudaErrorNotSupported</span> <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#else
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl">        <span class="n">cudaError</span> <span class="n">error</span> <span class="o">=</span> <span class="n">cudaSuccess</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">do</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// Get device ordinal
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="kt">int</span> <span class="n">device_ordinal</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">CubDebug</span><span class="p">(</span><span class="n">error</span> <span class="o">=</span> <span class="n">cudaGetDevice</span><span class="p">(</span><span class="o">&amp;</span><span class="n">device_ordinal</span><span class="p">)))</span> <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1">// Get SM count
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="kt">int</span> <span class="n">sm_count</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">CubDebug</span><span class="p">(</span><span class="n">error</span> <span class="o">=</span> <span class="n">cudaDeviceGetAttribute</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">sm_count</span><span class="p">,</span> <span class="n">cudaDevAttrMultiProcessorCount</span><span class="p">,</span> <span class="n">device_ordinal</span><span class="p">)))</span> <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1">// Init regular kernel configuration
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">KernelConfig</span> <span class="n">reduce_config</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">CubDebug</span><span class="p">(</span><span class="n">error</span> <span class="o">=</span> <span class="n">reduce_config</span><span class="p">.</span><span class="n">Init</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">ActivePolicyT</span><span class="o">::</span><span class="n">ReducePolicy</span><span class="o">&gt;</span><span class="p">(</span><span class="n">reduce_kernel</span><span class="p">)))</span> <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">int</span> <span class="n">reduce_device_occupancy</span> <span class="o">=</span> <span class="n">reduce_config</span><span class="p">.</span><span class="n">sm_occupancy</span> <span class="o">*</span> <span class="n">sm_count</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1">// Even-share work distribution
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="kt">int</span> <span class="n">max_blocks</span> <span class="o">=</span> <span class="n">reduce_device_occupancy</span> <span class="o">*</span> <span class="n">CUB_SUBSCRIPTION_FACTOR</span><span class="p">(</span><span class="n">ptx_version</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">GridEvenShare</span><span class="o">&lt;</span><span class="n">OffsetT</span><span class="o">&gt;</span> <span class="n">even_share</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">even_share</span><span class="p">.</span><span class="n">DispatchInit</span><span class="p">(</span><span class="n">num_items</span><span class="p">,</span> <span class="n">max_blocks</span><span class="p">,</span> <span class="n">reduce_config</span><span class="p">.</span><span class="n">tile_size</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1">// Temporary storage allocation requirements
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="kt">void</span><span class="o">*</span> <span class="n">allocations</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">            <span class="n">size_t</span> <span class="n">allocation_sizes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">max_blocks</span> <span class="o">*</span> <span class="nf">sizeof</span><span class="p">(</span><span class="n">OutputT</span><span class="p">)</span>    <span class="c1">// bytes needed for privatized block reductions
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1">// Alias the temporary allocations from the single storage blob (or compute the necessary size of the blob)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">if</span> <span class="p">(</span><span class="n">CubDebug</span><span class="p">(</span><span class="n">error</span> <span class="o">=</span> <span class="n">AliasTemporaries</span><span class="p">(</span><span class="n">d_temp_storage</span><span class="p">,</span> <span class="n">temp_storage_bytes</span><span class="p">,</span> <span class="n">allocations</span><span class="p">,</span> <span class="n">allocation_sizes</span><span class="p">)))</span> <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">d_temp_storage</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">// Return if the caller is simply requesting the size of the storage allocation
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="k">return</span> <span class="n">cudaSuccess</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1">// Alias the allocation for the privatized per-block reductions
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">OutputT</span> <span class="o">*</span><span class="n">d_block_reductions</span> <span class="o">=</span> <span class="p">(</span><span class="n">OutputT</span><span class="o">*</span><span class="p">)</span> <span class="n">allocations</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1">// Get grid size for device_reduce_sweep_kernel
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="kt">int</span> <span class="n">reduce_grid_size</span> <span class="o">=</span> <span class="n">even_share</span><span class="p">.</span><span class="n">grid_size</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1">// Log device_reduce_sweep_kernel configuration
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">if</span> <span class="p">(</span><span class="n">debug_synchronous</span><span class="p">)</span> <span class="n">_CubLog</span><span class="p">(</span><span class="s">&#34;Invoking DeviceReduceKernel&lt;&lt;&lt;%d, %d, 0, %lld&gt;&gt;&gt;(), %d items per thread, %d SM occupancy</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">reduce_grid_size</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">ActivePolicyT</span><span class="o">::</span><span class="n">ReducePolicy</span><span class="o">::</span><span class="n">BLOCK_THREADS</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">(</span><span class="kt">long</span> <span class="kt">long</span><span class="p">)</span> <span class="n">stream</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">ActivePolicyT</span><span class="o">::</span><span class="n">ReducePolicy</span><span class="o">::</span><span class="n">ITEMS_PER_THREAD</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">reduce_config</span><span class="p">.</span><span class="n">sm_occupancy</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1">// Invoke DeviceReduceKernel
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">THRUST_NS_QUALIFIER</span><span class="o">::</span><span class="n">cuda_cub</span><span class="o">::</span><span class="n">launcher</span><span class="o">::</span><span class="n">triple_chevron</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="n">reduce_grid_size</span><span class="p">,</span> <span class="n">ActivePolicyT</span><span class="o">::</span><span class="n">ReducePolicy</span><span class="o">::</span><span class="n">BLOCK_THREADS</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="mi">0</span><span class="p">,</span> <span class="n">stream</span>
+</span></span><span class="line"><span class="cl">            <span class="p">).</span><span class="n">doit</span><span class="p">(</span><span class="n">reduce_kernel</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">d_in</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">d_block_reductions</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">num_items</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">even_share</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">reduction_op</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1">// Check for failure to launch
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">if</span> <span class="p">(</span><span class="n">CubDebug</span><span class="p">(</span><span class="n">error</span> <span class="o">=</span> <span class="n">cudaPeekAtLastError</span><span class="p">()))</span> <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1">// Sync the stream if specified to flush runtime errors
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">if</span> <span class="p">(</span><span class="n">debug_synchronous</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">CubDebug</span><span class="p">(</span><span class="n">error</span> <span class="o">=</span> <span class="n">DebugSyncStream</span><span class="p">(</span><span class="n">stream</span><span class="p">))))</span> <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1">// Log single_reduce_sweep_kernel configuration
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">if</span> <span class="p">(</span><span class="n">debug_synchronous</span><span class="p">)</span> <span class="n">_CubLog</span><span class="p">(</span><span class="s">&#34;Invoking DeviceReduceSingleTileKernel&lt;&lt;&lt;1, %d, 0, %lld&gt;&gt;&gt;(), %d items per thread</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">ActivePolicyT</span><span class="o">::</span><span class="n">SingleTilePolicy</span><span class="o">::</span><span class="n">BLOCK_THREADS</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">(</span><span class="kt">long</span> <span class="kt">long</span><span class="p">)</span> <span class="n">stream</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">ActivePolicyT</span><span class="o">::</span><span class="n">SingleTilePolicy</span><span class="o">::</span><span class="n">ITEMS_PER_THREAD</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1">// Invoke DeviceReduceSingleTileKernel
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">THRUST_NS_QUALIFIER</span><span class="o">::</span><span class="n">cuda_cub</span><span class="o">::</span><span class="n">launcher</span><span class="o">::</span><span class="n">triple_chevron</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="mi">1</span><span class="p">,</span> <span class="n">ActivePolicyT</span><span class="o">::</span><span class="n">SingleTilePolicy</span><span class="o">::</span><span class="n">BLOCK_THREADS</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">stream</span>
+</span></span><span class="line"><span class="cl">            <span class="p">).</span><span class="n">doit</span><span class="p">(</span><span class="n">single_tile_kernel</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">d_block_reductions</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">d_out</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">reduce_grid_size</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">reduction_op</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">init</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1">// Check for failure to launch
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">if</span> <span class="p">(</span><span class="n">CubDebug</span><span class="p">(</span><span class="n">error</span> <span class="o">=</span> <span class="n">cudaPeekAtLastError</span><span class="p">()))</span> <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1">// Sync the stream if specified to flush runtime errors
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">if</span> <span class="p">(</span><span class="n">debug_synchronous</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">CubDebug</span><span class="p">(</span><span class="n">error</span> <span class="o">=</span> <span class="n">DebugSyncStream</span><span class="p">(</span><span class="n">stream</span><span class="p">))))</span> <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">error</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp">#endif </span><span class="c1">// CUB_RUNTIME_ENABLED
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-01-29</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://localhost:1313/cub/" data-title="Reduction" data-hashtags="GPU"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://localhost:1313/cub/" data-hashtag="GPU"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/cub/" data-title="Reduction"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://localhost:1313/cub/" data-title="Reduction"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://localhost:1313/cub/" data-title="Reduction"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/gpu/">GPU</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/gpu-distance/" class="prev" rel="prev" title="distance computation"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>distance computation</a>
+            <a href="/lie_group/" class="next" rel="next" title="Lie Group">Lie Group<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.123.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="../../about" target="_blank">wangwei</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

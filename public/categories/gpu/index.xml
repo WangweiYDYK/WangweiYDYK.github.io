@@ -1,0 +1,27 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>GPU - Category - Wangwei&#39;s Home</title>
+        <link>http://localhost:1313/categories/gpu/</link>
+        <description>GPU - Category - Wangwei&#39;s Home</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>1028963346@qq.com (wangwei)</managingEditor>
+            <webMaster>1028963346@qq.com (wangwei)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 29 Jan 2024 11:23:09 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/categories/gpu/" rel="self" type="application/rss+xml" /><item>
+    <title>Reduction</title>
+    <link>http://localhost:1313/cub/</link>
+    <pubDate>Mon, 29 Jan 2024 11:23:09 &#43;0800</pubDate>
+    <author>wangwei</author>
+    <guid>http://localhost:1313/cub/</guid>
+    <description><![CDATA[Reduction 概念 可以将Reduce操作视为计算$x = x_0\oplus x_1\oplus x_2\oplus &hellip;\oplus x_n$，$\oplus $作为算子可以表示为乘法，加法，最小值等运算
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 //一个基础的Reduce操作,源自NVDIA的教程 __global__ void reduce0(int* g_idata, int* g_odata) { extern __shared__ int sdata[]; unsigned int tid = threadIdx.]]></description>
+</item>
+<item>
+    <title>distance computation</title>
+    <link>http://localhost:1313/gpu-distance/</link>
+    <pubDate>Fri, 26 Jan 2024 20:51:27 &#43;0800</pubDate>
+    <author>wangwei</author>
+    <guid>http://localhost:1313/gpu-distance/</guid>
+    <description><![CDATA[Distance Computation CPU上的离散模型距离计算库 FCL
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 #include &lt;fcl/fcl.h&gt; typedef fcl::BVHModel&lt;fcl::OBBRSS&lt;REAL&gt;&gt; FCLModel; std::vector&lt;fcl::Vector3&lt;REAL&gt;&gt; fclVerticesA, fclVerticesB; std::vector&lt;fcl::Triangle&gt; fclTrianglesA, fclTrianglesB; std::shared_ptr&lt;FCLModel&gt; geomA = std::make_shared&lt;FCLModel&gt;(); std::shared_ptr&lt;FCLModel&gt; geomB = std::make_shared&lt;FCLModel&gt;(); FCLModel* FCLModelA, *FCLModelB; fcl::CollisionObject&lt;REAL&gt;* objA = new fcl::CollisionObject&lt;REAL&gt;(geomA, transformA); fcl::CollisionObject&lt;REAL&gt;* objB = new fcl::CollisionObject&lt;REAL&gt;(geomB, transformB); fcl::DistanceRequest&lt;REAL&gt; request; request.enable_nearest_points = true; fcl::DistanceResult&lt;REAL&gt; result; fcl::distance(objA, objB, request, result); PQP
+1 2 3 4 5 6 7 8 #include &#34;PQP.]]></description>
+</item>
+</channel>
+</rss>

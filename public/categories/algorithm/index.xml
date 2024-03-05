@@ -1,0 +1,18 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Algorithm - Category - Wangwei&#39;s Home</title>
+        <link>http://localhost:1313/categories/algorithm/</link>
+        <description>Algorithm - Category - Wangwei&#39;s Home</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>1028963346@qq.com (wangwei)</managingEditor>
+            <webMaster>1028963346@qq.com (wangwei)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 26 Jan 2024 20:51:27 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/categories/algorithm/" rel="self" type="application/rss+xml" /><item>
+    <title>distance computation</title>
+    <link>http://localhost:1313/gpu-distance/</link>
+    <pubDate>Fri, 26 Jan 2024 20:51:27 &#43;0800</pubDate>
+    <author>wangwei</author>
+    <guid>http://localhost:1313/gpu-distance/</guid>
+    <description><![CDATA[Distance Computation CPU上的离散模型距离计算库 FCL
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 #include &lt;fcl/fcl.h&gt; typedef fcl::BVHModel&lt;fcl::OBBRSS&lt;REAL&gt;&gt; FCLModel; std::vector&lt;fcl::Vector3&lt;REAL&gt;&gt; fclVerticesA, fclVerticesB; std::vector&lt;fcl::Triangle&gt; fclTrianglesA, fclTrianglesB; std::shared_ptr&lt;FCLModel&gt; geomA = std::make_shared&lt;FCLModel&gt;(); std::shared_ptr&lt;FCLModel&gt; geomB = std::make_shared&lt;FCLModel&gt;(); FCLModel* FCLModelA, *FCLModelB; fcl::CollisionObject&lt;REAL&gt;* objA = new fcl::CollisionObject&lt;REAL&gt;(geomA, transformA); fcl::CollisionObject&lt;REAL&gt;* objB = new fcl::CollisionObject&lt;REAL&gt;(geomB, transformB); fcl::DistanceRequest&lt;REAL&gt; request; request.enable_nearest_points = true; fcl::DistanceResult&lt;REAL&gt; result; fcl::distance(objA, objB, request, result); PQP
+1 2 3 4 5 6 7 8 #include &#34;PQP.]]></description>
+</item>
+</channel>
+</rss>

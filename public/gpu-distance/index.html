@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>distance computation - Wangwei&#39;s Home</title><meta name="Description" content="Wangwei&#39;s Home"><meta property="og:title" content="distance computation" />
+<meta property="og:description" content="Distance Computation CPU上的离散模型距离计算库 FCL
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 #include &lt;fcl/fcl.h&gt; typedef fcl::BVHModel&lt;fcl::OBBRSS&lt;REAL&gt;&gt; FCLModel; std::vector&lt;fcl::Vector3&lt;REAL&gt;&gt; fclVerticesA, fclVerticesB; std::vector&lt;fcl::Triangle&gt; fclTrianglesA, fclTrianglesB; std::shared_ptr&lt;FCLModel&gt; geomA = std::make_shared&lt;FCLModel&gt;(); std::shared_ptr&lt;FCLModel&gt; geomB = std::make_shared&lt;FCLModel&gt;(); FCLModel* FCLModelA, *FCLModelB; fcl::CollisionObject&lt;REAL&gt;* objA = new fcl::CollisionObject&lt;REAL&gt;(geomA, transformA); fcl::CollisionObject&lt;REAL&gt;* objB = new fcl::CollisionObject&lt;REAL&gt;(geomB, transformB); fcl::DistanceRequest&lt;REAL&gt; request; request.enable_nearest_points = true; fcl::DistanceResult&lt;REAL&gt; result; fcl::distance(objA, objB, request, result); PQP
+1 2 3 4 5 6 7 8 #include &#34;PQP." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/gpu-distance/" /><meta property="og:image" content="http://localhost:1313/logo.png" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-01-26T20:51:27+08:00" />
+<meta property="article:modified_time" content="2024-01-26T20:51:27+08:00" /><meta property="og:site_name" content="Wangwei&#39;s Home" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="http://localhost:1313/logo.png" /><meta name="twitter:title" content="distance computation"/>
+<meta name="twitter:description" content="Distance Computation CPU上的离散模型距离计算库 FCL
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 #include &lt;fcl/fcl.h&gt; typedef fcl::BVHModel&lt;fcl::OBBRSS&lt;REAL&gt;&gt; FCLModel; std::vector&lt;fcl::Vector3&lt;REAL&gt;&gt; fclVerticesA, fclVerticesB; std::vector&lt;fcl::Triangle&gt; fclTrianglesA, fclTrianglesB; std::shared_ptr&lt;FCLModel&gt; geomA = std::make_shared&lt;FCLModel&gt;(); std::shared_ptr&lt;FCLModel&gt; geomB = std::make_shared&lt;FCLModel&gt;(); FCLModel* FCLModelA, *FCLModelB; fcl::CollisionObject&lt;REAL&gt;* objA = new fcl::CollisionObject&lt;REAL&gt;(geomA, transformA); fcl::CollisionObject&lt;REAL&gt;* objB = new fcl::CollisionObject&lt;REAL&gt;(geomB, transformB); fcl::DistanceRequest&lt;REAL&gt; request; request.enable_nearest_points = true; fcl::DistanceResult&lt;REAL&gt; result; fcl::distance(objA, objB, request, result); PQP
+1 2 3 4 5 6 7 8 #include &#34;PQP."/>
+<meta name="application-name" content="Wangwei&#39;s Home">
+<meta name="apple-mobile-web-app-title" content="Wangwei&#39;s Home"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/gpu-distance/" /><link rel="prev" href="http://localhost:1313/heatmethod/" /><link rel="next" href="http://localhost:1313/cub/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "distance computation",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/localhost:1313\/gpu-distance\/"
+        },"image": ["http:\/\/localhost:1313\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "GPU","wordcount":  408 ,
+        "url": "http:\/\/localhost:1313\/gpu-distance\/","datePublished": "2024-01-26T20:51:27+08:00","dateModified": "2024-01-26T20:51:27+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": {
+                    "@type": "ImageObject",
+                    "url": "http:\/\/localhost:1313\/images\/avatar.png",
+                    "width":  1280 ,
+                    "height":  581 
+                }},"author": {
+                "@type": "Person",
+                "name": "wangwei"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Wangwei&#39;s Home"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Wangwei&#39;s Home</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><a class="menu-item" href="/about/"> About </a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="Select Language">
+                    <i class="fa fa-globe" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/gpu-distance/" selected>English</option></select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Wangwei&#39;s Home"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Wangwei&#39;s Home</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a class="menu-item" href="/about/" title="">About</a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="Select Language">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/gpu-distance/" selected>English</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">distance computation</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="../../about" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>wangwei</a></span>&nbsp;<span class="post-category">included in <a href="/categories/gpu/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>GPU</a>&nbsp;<a href="/categories/algorithm/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Algorithm</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-01-26">2024-01-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;408 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#cpu上的离散模型距离计算库">CPU上的离散模型距离计算库</a></li>
+    <li><a href="#贝塞尔曲线的最小距离计算">贝塞尔曲线的最小距离计算</a></li>
+    <li><a href="#gpu-distance-computation">GPU distance computation</a>
+      <ul>
+        <li><a href="#aabb包围盒的距离上下界">AABB包围盒的距离上下界</a></li>
+        <li><a href="#bvtt的扩展">BVTT的扩展</a></li>
+        <li><a href="#自适应深度计算">自适应深度计算</a></li>
+        <li><a href="#吞吐量">吞吐量</a></li>
+        <li><a href="#最小距离的维护">最小距离的维护</a></li>
+        <li><a href="#f12-bvh的构建">f12 BVH的构建</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="distance-computation">Distance Computation</h1>
+<h2 id="cpu上的离散模型距离计算库">CPU上的离散模型距离计算库</h2>
+<p>FCL</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;fcl/fcl.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">typedef</span> <span class="n">fcl</span><span class="o">::</span><span class="n">BVHModel</span><span class="o">&lt;</span><span class="n">fcl</span><span class="o">::</span><span class="n">OBBRSS</span><span class="o">&lt;</span><span class="n">REAL</span><span class="o">&gt;&gt;</span> <span class="n">FCLModel</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">fcl</span><span class="o">::</span><span class="n">Vector3</span><span class="o">&lt;</span><span class="n">REAL</span><span class="o">&gt;&gt;</span> <span class="n">fclVerticesA</span><span class="p">,</span> <span class="n">fclVerticesB</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">fcl</span><span class="o">::</span><span class="n">Triangle</span><span class="o">&gt;</span> <span class="n">fclTrianglesA</span><span class="p">,</span> <span class="n">fclTrianglesB</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">FCLModel</span><span class="o">&gt;</span> <span class="n">geomA</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">FCLModel</span><span class="o">&gt;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">FCLModel</span><span class="o">&gt;</span> <span class="n">geomB</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">FCLModel</span><span class="o">&gt;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">FCLModel</span><span class="o">*</span> <span class="n">FCLModelA</span><span class="p">,</span> <span class="o">*</span><span class="n">FCLModelB</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">fcl</span><span class="o">::</span><span class="n">CollisionObject</span><span class="o">&lt;</span><span class="n">REAL</span><span class="o">&gt;*</span> <span class="n">objA</span> <span class="o">=</span> <span class="k">new</span> <span class="n">fcl</span><span class="o">::</span><span class="n">CollisionObject</span><span class="o">&lt;</span><span class="n">REAL</span><span class="o">&gt;</span><span class="p">(</span><span class="n">geomA</span><span class="p">,</span> <span class="n">transformA</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">fcl</span><span class="o">::</span><span class="n">CollisionObject</span><span class="o">&lt;</span><span class="n">REAL</span><span class="o">&gt;*</span> <span class="n">objB</span> <span class="o">=</span> <span class="k">new</span> <span class="n">fcl</span><span class="o">::</span><span class="n">CollisionObject</span><span class="o">&lt;</span><span class="n">REAL</span><span class="o">&gt;</span><span class="p">(</span><span class="n">geomB</span><span class="p">,</span> <span class="n">transformB</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">fcl</span><span class="o">::</span><span class="n">DistanceRequest</span><span class="o">&lt;</span><span class="n">REAL</span><span class="o">&gt;</span> <span class="n">request</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">request</span><span class="p">.</span><span class="n">enable_nearest_points</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">fcl</span><span class="o">::</span><span class="n">DistanceResult</span><span class="o">&lt;</span><span class="n">REAL</span><span class="o">&gt;</span> <span class="n">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">fcl</span><span class="o">::</span><span class="n">distance</span><span class="p">(</span><span class="n">objA</span><span class="p">,</span> <span class="n">objB</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>PQP</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;PQP.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">PQP_Model</span><span class="o">*</span> <span class="n">modelA</span><span class="p">,</span> <span class="o">*</span> <span class="n">modelB</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">PQP_REAL</span> <span class="n">RA</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="n">rotA</span><span class="p">.</span><span class="n">_data</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rotA</span><span class="p">.</span><span class="n">_data</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="n">rotA</span><span class="p">.</span><span class="n">_data</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span><span class="n">rotA</span><span class="p">.</span><span class="n">_data</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">rotA</span><span class="p">.</span><span class="n">_data</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="p">,</span><span class="n">rotA</span><span class="p">.</span><span class="n">_data</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="p">,</span><span class="n">rotA</span><span class="p">.</span><span class="n">_data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">,</span><span class="n">rotA</span><span class="p">.</span><span class="n">_data</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="p">,</span><span class="n">rotA</span><span class="p">.</span><span class="n">_data</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="n">PQP_REAL</span> <span class="n">OFFA</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="n">offsetA</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">offsetA</span><span class="p">.</span><span class="n">y</span><span class="p">,</span> <span class="n">offsetA</span><span class="p">.</span><span class="n">z</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="n">PQP_REAL</span> <span class="n">RB</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="n">rotB</span><span class="p">.</span><span class="n">_data</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rotB</span><span class="p">.</span><span class="n">_data</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="n">rotB</span><span class="p">.</span><span class="n">_data</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span><span class="n">rotB</span><span class="p">.</span><span class="n">_data</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">rotB</span><span class="p">.</span><span class="n">_data</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="p">,</span><span class="n">rotB</span><span class="p">.</span><span class="n">_data</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="p">,</span><span class="n">rotB</span><span class="p">.</span><span class="n">_data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">,</span><span class="n">rotB</span><span class="p">.</span><span class="n">_data</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="p">,</span><span class="n">rotB</span><span class="p">.</span><span class="n">_data</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="n">PQP_REAL</span> <span class="n">OFFB</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="n">offsetB</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">offsetB</span><span class="p">.</span><span class="n">y</span><span class="p">,</span> <span class="n">offsetB</span><span class="p">.</span><span class="n">z</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="n">PQP_DistanceResult</span> <span class="n">dres</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">PQP_Distance</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dres</span><span class="p">,</span> <span class="n">RA</span><span class="p">,</span> <span class="n">OFFA</span><span class="p">,</span> <span class="n">modelA</span><span class="p">,</span> <span class="n">RB</span><span class="p">,</span> <span class="n">OFFB</span><span class="p">,</span> <span class="n">modelB</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>SSE SSE只提供了三角形计算的代码，且其中有部分有问题？目前修改了一版基于embree的可用的SSE代码</p>
+<h2 id="贝塞尔曲线的最小距离计算">贝塞尔曲线的最小距离计算</h2>
+<p>参考Sum-of-square ccd的方法，计算贝塞尔曲线的距离
+以下为matlab代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-matlab" data-lang="matlab"><span class="line"><span class="cl"><span class="c">% u1是第一条贝塞尔曲线的参数，v1是第二条贝塞尔曲线的参数</span>
+</span></span><span class="line"><span class="cl"><span class="n">sdpvar</span> <span class="n">u1</span> <span class="n">v1</span> <span class="n">lambda</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">% 默认两条都是三次贝塞尔曲线</span>
+</span></span><span class="line"><span class="cl"><span class="n">d</span> <span class="p">=</span> <span class="mi">3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">% 分别为Bcurve1和Bcurve2的控制点</span>
+</span></span><span class="line"><span class="cl"><span class="n">pta0</span> <span class="p">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">;</span><span class="mi">0</span><span class="p">;</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="n">pta1</span> <span class="p">=</span> <span class="p">[</span><span class="mi">8</span><span class="p">;</span><span class="mi">0</span><span class="p">;</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="n">pta2</span> <span class="p">=</span> <span class="p">[</span><span class="mi">8</span><span class="p">;</span><span class="mi">8</span><span class="p">;</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="n">pta3</span> <span class="p">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">;</span><span class="mi">8</span><span class="p">;</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">ptb0</span> <span class="p">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">8</span><span class="p">;</span><span class="mi">0</span><span class="p">;</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="n">ptb1</span> <span class="p">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">;</span><span class="mi">0</span><span class="p">;</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="n">ptb2</span> <span class="p">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">;</span><span class="mi">8</span><span class="p">;</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="n">ptb3</span> <span class="p">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">8</span><span class="p">;</span><span class="mi">8</span><span class="p">;</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Bcurve1</span> <span class="p">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">u1</span><span class="p">)</span>^<span class="mi">3</span><span class="o">*</span><span class="n">pta0</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">u1</span><span class="p">)</span>^<span class="mi">2</span><span class="o">*</span><span class="n">u1</span><span class="o">*</span><span class="n">pta1</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">u1</span><span class="p">)</span><span class="o">*</span><span class="n">u1</span>^<span class="mi">2</span><span class="o">*</span><span class="n">pta2</span> <span class="o">+</span> <span class="n">u1</span>^<span class="mi">3</span><span class="o">*</span><span class="n">pta3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">Bcurve2</span> <span class="p">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">v1</span><span class="p">)</span>^<span class="mi">3</span><span class="o">*</span><span class="n">ptb0</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">v1</span><span class="p">)</span>^<span class="mi">2</span><span class="o">*</span><span class="n">v1</span><span class="o">*</span><span class="n">ptb1</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">v1</span><span class="p">)</span><span class="o">*</span><span class="n">v1</span>^<span class="mi">2</span><span class="o">*</span><span class="n">ptb2</span> <span class="o">+</span> <span class="n">v1</span>^<span class="mi">3</span><span class="o">*</span><span class="n">ptb3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">% sos约束数量取决于不等式约束的数量</span>
+</span></span><span class="line"><span class="cl"><span class="n">gi</span> <span class="p">=</span> <span class="p">[</span><span class="n">u1</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">u1</span><span class="p">);</span> <span class="n">v1</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">v1</span><span class="p">)];</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="n">s1</span><span class="p">,</span> <span class="n">s1c</span><span class="p">]</span> <span class="p">=</span> <span class="n">polynomial</span><span class="p">(</span><span class="n">u1</span><span class="p">,</span> <span class="n">d</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="n">s2</span><span class="p">,</span> <span class="n">s2c</span><span class="p">]</span> <span class="p">=</span> <span class="n">polynomial</span><span class="p">(</span><span class="n">u1</span><span class="p">,</span> <span class="n">d</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">% 待优化函数f 此处为距离函数</span>
+</span></span><span class="line"><span class="cl"><span class="n">f</span> <span class="p">=</span> <span class="p">(</span><span class="n">Bcurve2</span> <span class="o">-</span> <span class="n">Bcurve1</span><span class="p">)</span><span class="o">&#39;</span> <span class="o">*</span> <span class="p">(</span><span class="n">Bcurve2</span> <span class="o">-</span> <span class="n">Bcurve1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">C1</span> <span class="p">=</span> <span class="p">[</span><span class="n">sos</span><span class="p">(</span><span class="n">s1</span><span class="p">);</span> <span class="n">sos</span><span class="p">(</span><span class="n">s2</span><span class="p">)];</span>
+</span></span><span class="line"><span class="cl"><span class="n">C2</span> <span class="p">=</span> <span class="n">sos</span><span class="p">(</span><span class="n">f</span><span class="o">-</span><span class="n">lambda</span><span class="o">-</span><span class="p">[</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">]</span> <span class="o">*</span> <span class="n">gi</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">F</span> <span class="p">=</span> <span class="p">[</span><span class="n">C1</span><span class="p">,</span> <span class="n">C2</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="n">C</span><span class="p">,</span> <span class="n">obj</span><span class="p">]</span> <span class="p">=</span> <span class="n">sosmodel</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="o">-</span><span class="n">lambda</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="n">s1c</span><span class="p">;</span> <span class="n">s2c</span><span class="p">;</span> <span class="n">lambda</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="n">optimize</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="p">[]);</span>
+</span></span><span class="line"><span class="cl"><span class="n">value</span><span class="p">(</span><span class="n">lambda</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">% lstar = value(lambda);</span>
+</span></span><span class="line"><span class="cl"><span class="c">% mu = dual(C(2));</span>
+</span></span><span class="line"><span class="cl"><span class="c">% ustar = mu(3:4)/mu(1);</span>
+</span></span><span class="line"><span class="cl"><span class="c">% value(ustar)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="gpu-distance-computation">GPU distance computation</h2>
+<h3 id="aabb包围盒的距离上下界">AABB包围盒的距离上下界</h3>
+<h3 id="bvtt的扩展">BVTT的扩展</h3>
+<p>每个BVTT存储来自两颗BVH树中的两个节点，并在自适应深度下，生成自己的四个bvtt子节点，计算其bounding box的距离上下界，然后根据这个距离上下界，决定是否需要进一步的深度计算。</p>
+<p>选择使用SoA的方式存储BVTT，这样可以更好的利用内存的连续性，提高访存效率</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">__host__</span> <span class="n">__device__</span> <span class="k">struct</span> <span class="nc">g_bvtt</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span><span class="o">*</span> <span class="n">id1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span><span class="o">*</span> <span class="n">id2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">float</span><span class="o">*</span> <span class="n">min</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="自适应深度计算">自适应深度计算</h3>
+<p>根据节点数对扩展的层数进行动态的调整，当缓冲区包含了n个BVTT节点时，自适应展开算法的目标通常是一个常数c，我们需要找到一个合适的展开层数k，在实际应用中，取常数c为$1024\times256$</p>
+<h3 id="吞吐量">吞吐量</h3>
+<p>分配一个bvtt节点到多个对应线程中
+考虑到一个bvtt节点最多有4个对应的子节点，
+将一个BVTT节点分配到多个线程中，</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">int</span> <span class="n">tid</span> <span class="o">=</span> <span class="n">blockDim</span><span class="p">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">blockIdx</span><span class="p">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">id1</span><span class="p">,</span> <span class="n">id2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">id1</span> <span class="o">=</span> <span class="n">bvttNode</span><span class="p">.</span><span class="n">id1</span><span class="p">[</span><span class="n">tid</span> <span class="o">&gt;&gt;</span> <span class="mi">2</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="n">id2</span> <span class="o">=</span> <span class="n">bvttNode</span><span class="p">.</span><span class="n">id2</span><span class="p">[</span><span class="n">tid</span> <span class="o">&gt;&gt;</span> <span class="mi">2</span><span class="p">];</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="最小距离的维护">最小距离的维护</h3>
+<p>然后使用cub库的BlockReduce原子操作获得一个block内的最小值，然后使用atomicMin原子操作获得全局的最小值</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// 基于浮点数的atomicMin操作
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">inline</span> <span class="n">__device__</span> <span class="kt">float</span> <span class="nf">atomicMin</span><span class="p">(</span><span class="kt">float</span><span class="o">*</span> <span class="n">address</span><span class="p">,</span> <span class="kt">float</span> <span class="n">val</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span><span class="o">*</span> <span class="n">address_as_i</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">address</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">old</span> <span class="o">=</span> <span class="o">*</span><span class="n">address_as_i</span><span class="p">,</span> <span class="n">assumed</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">do</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">assumed</span> <span class="o">=</span> <span class="n">old</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">old</span> <span class="o">=</span> <span class="o">::</span><span class="n">atomicCAS</span><span class="p">(</span><span class="n">address_as_i</span><span class="p">,</span> <span class="n">assumed</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">			<span class="n">__float_as_int</span><span class="p">(</span><span class="o">::</span><span class="n">fminf</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">__int_as_float</span><span class="p">(</span><span class="n">assumed</span><span class="p">))));</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">assumed</span> <span class="o">!=</span> <span class="n">old</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">__int_as_float</span><span class="p">(</span><span class="n">old</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="f12-bvh的构建">f12 BVH的构建</h3>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-01-26</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://localhost:1313/gpu-distance/" data-title="distance computation" data-hashtags="GPU"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://localhost:1313/gpu-distance/" data-hashtag="GPU"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/gpu-distance/" data-title="distance computation"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://localhost:1313/gpu-distance/" data-title="distance computation"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://localhost:1313/gpu-distance/" data-title="distance computation"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/gpu/">GPU</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/heatmethod/" class="prev" rel="prev" title="Heat Method for Geodesic"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Heat Method for Geodesic</a>
+            <a href="/cub/" class="next" rel="next" title="Reduction">Reduction<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.123.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="../../about" target="_blank">wangwei</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
