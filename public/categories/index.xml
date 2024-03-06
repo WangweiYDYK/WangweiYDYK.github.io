@@ -13,19 +13,27 @@
     <description><![CDATA[]]></description>
 </item>
 <item>
-    <title>GPU</title>
-    <link>http://localhost:1313/categories/gpu/</link>
-    <pubDate>Mon, 29 Jan 2024 11:23:09 &#43;0800</pubDate>
-    <author>wangwei</author>
-    <guid>http://localhost:1313/categories/gpu/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
     <title>Algorithm</title>
     <link>http://localhost:1313/categories/algorithm/</link>
     <pubDate>Fri, 26 Jan 2024 20:51:27 &#43;0800</pubDate>
     <author>wangwei</author>
     <guid>http://localhost:1313/categories/algorithm/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>GPU</title>
+    <link>http://localhost:1313/categories/gpu/</link>
+    <pubDate>Fri, 26 Jan 2024 20:51:27 &#43;0800</pubDate>
+    <author>wangwei</author>
+    <guid>http://localhost:1313/categories/gpu/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Simulation</title>
+    <link>http://localhost:1313/categories/simulation/</link>
+    <pubDate>Thu, 13 Jul 2023 19:08:59 &#43;0800</pubDate>
+    <author>wangwei</author>
+    <guid>http://localhost:1313/categories/simulation/</guid>
     <description><![CDATA[]]></description>
 </item>
 </channel>

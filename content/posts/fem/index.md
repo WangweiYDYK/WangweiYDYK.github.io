@@ -2,6 +2,8 @@
 title = 'FEM'
 date = 2023-07-13T19:08:59+08:00
 draft = false
+tags = ['simulation']
+categories = ["simulation"]
 +++
 
 # fem概览

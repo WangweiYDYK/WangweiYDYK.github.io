@@ -39,10 +39,6 @@ categories = ["math"]
 
 </center>
 
-## 李代数
-
-## 生成子
-
 ## O(2)
 
 ## SO(2)

@@ -45,7 +45,6 @@ categories = ["math"]
 一般线性群$GL(n)$:其单位元为单位矩阵，逆元为一个矩阵的逆矩阵。
 
 特殊正交群$SO(n)$:
-    $SO(n) = {A \in GL(n) | AAT = I, det(\mathbf(R)) = 1}$
 
 特殊欧式群$SE(n)$:
 
@@ -60,14 +59,10 @@ categories = ["math"]
   <img src="./pic/alternating_group.png" alt="cyclic group">
 </p>
 
-对称群：n个对象所有的重新排列组成对称群$S_n$,可参考(https://zhuanlan.zhihu.com/p/402197369)
+对称群：n个对象所有的重新排列组成对称群$S_n$，可参考(https://zhuanlan.zhihu.com/p/402197369)
 <p align="center">
   <img src="./pic/symmetric_group.png" alt="cyclic group">
 </p>
-变换群
-
-置换群
-
 
 ## 环
 

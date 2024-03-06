@@ -1,6 +1,6 @@
 +++
 title = 'Reduction'
-date = 2024-01-29T11:23:09+08:00
+date = 2023-04-17T11:23:09+08:00
 draft = false
 tags = ['GPU']
 categories = ["GPU"]

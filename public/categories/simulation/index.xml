@@ -1,0 +1,37 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Simulation - Category - Wangwei&#39;s Home</title>
+        <link>http://localhost:1313/categories/simulation/</link>
+        <description>Simulation - Category - Wangwei&#39;s Home</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>1028963346@qq.com (wangwei)</managingEditor>
+            <webMaster>1028963346@qq.com (wangwei)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 13 Jul 2023 19:08:59 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/categories/simulation/" rel="self" type="application/rss+xml" /><item>
+    <title>FEM</title>
+    <link>http://localhost:1313/fem/</link>
+    <pubDate>Thu, 13 Jul 2023 19:08:59 &#43;0800</pubDate>
+    <author>wangwei</author>
+    <guid>http://localhost:1313/fem/</guid>
+    <description><![CDATA[fem概览 流程 1.获得微分方程
+2.定义边界或者约束条件
+3.将微分形式的控制方程转换为其等效积分
+4.对计算单元刚度矩阵
+5.单元刚度矩阵的组装
+6.矩阵求解
+等效变换 控制方程（微分形式）-&gt; 等效积分 -&gt; 等效积分的弱形式
+变分形式推导
+加权余量 给定微分方程 $$A(u) = 0$$ $$B(u) = 0$$
+能量泛函推导： $$A(u) = L(u) + f$$ $$\int_{\Omega}(L(u) + f)\delta u \ d\Omega = 0$$
+$$ \begin{equation*} \begin{split} \int_{\Omega}L(u)\delta u \ d\Omega &amp; = \int_{\Omega}\frac{1}{2}L(u)\delta u \ d\Omega + \int_{\Omega}\frac{1}{2}L(u)\delta u \ d\Omega \\ &amp; = \int_{\Omega}\frac{1}{2}L(u)\delta u \ d\Omega + \int_{\Omega}\frac{1}{2}L(\delta u)u \ d\Omega \\ &amp; = \delta\int_{\Omega}\frac{1}{2}L(u)u \ d\Omega \end{split} \end{equation*} $$ 其中A和B都是算子符号,$A(u)$为控制方程，$B(u)$为边界条件]]></description>
+</item>
+<item>
+    <title>mesh ccd</title>
+    <link>http://localhost:1313/ccd/</link>
+    <pubDate>Mon, 01 May 2023 19:08:59 &#43;0800</pubDate>
+    <author>wangwei</author>
+    <guid>http://localhost:1313/ccd/</guid>
+    <description><![CDATA[mesh ccd 基本概念 false positives a collision is reported when there is no collision
+false negatives a collision is not reported when there is a collision
+Multivariate CCD Formulation $$\begin{align*} &amp;F_{\mathrm{vf}}(t, u, v)=p(t)-\left((1-u-v) v_1(t)+u v_2(t)+v v_3(t)\right)\\ &amp;F_{\mathrm{vf}}: \Omega_{\mathrm{vf}}=[0,1] \times\{u, v \geqslant 0 \mid u+v \leqslant 1\} \rightarrow \mathbb{R}^3\\ &amp;F_{\mathrm{ee}}(t, u, v)=\left((1-u) p_1(t)+u p_2(t)\right)-\left((1-v) p_3(t)+v p_4(t)\right)\\ &amp;F_{\mathrm{ee}}: \Omega_{\mathrm{ee}}=[0,1] \times[0,1]^2 \rightarrow \mathbb{R}^3 \end{align*}$$
+Univariate CCD Formulation Normal Cone test 给定连续曲面S以及其边界C，若其不自交，则必须通过surface normal test和contour test]]></description>
+</item>
+</channel>
+</rss>

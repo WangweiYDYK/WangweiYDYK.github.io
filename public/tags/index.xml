@@ -15,9 +15,17 @@
 <item>
     <title>GPU</title>
     <link>http://localhost:1313/tags/gpu/</link>
-    <pubDate>Mon, 29 Jan 2024 11:23:09 &#43;0800</pubDate>
+    <pubDate>Fri, 26 Jan 2024 20:51:27 &#43;0800</pubDate>
     <author>wangwei</author>
     <guid>http://localhost:1313/tags/gpu/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Simulation</title>
+    <link>http://localhost:1313/tags/simulation/</link>
+    <pubDate>Thu, 13 Jul 2023 19:08:59 &#43;0800</pubDate>
+    <author>wangwei</author>
+    <guid>http://localhost:1313/tags/simulation/</guid>
     <description><![CDATA[]]></description>
 </item>
 </channel>

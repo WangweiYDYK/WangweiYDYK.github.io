@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Nsight Compute note - Wangwei&#39;s Home</title><meta name="Description" content="Wangwei&#39;s Home"><meta property="og:title" content="Nsight Compute note" />
+<meta property="og:description" content="nsight compute GPUs: Pascal, Volta, Turing, Ampere, and future architectures
+报告所用exe由cuda-samples-11.8的vectorAdd项目生成
+some basic concepts SMSP: sub-partition of SM。在 NVIDIA GPU 中，&ldquo;sub-partition&rdquo; 是指在每个 Streaming Multiprocessor (SM) 中的物理资源分配单元。在某些 NVIDIA GPU 架构中，每个 SM 可以被进一步分成多个 sub-partition，每个 sub-partition 拥有自己的寄存器文件、共享内存以及其他资源。 这种细分使得每个 SM 内的资源能够更加灵活地分配给并行执行的线程块，从而提高了资源利用率和并行性。通过 sub-partition，开发人员可以更好地控制和优化在每个 SM 上执行的并行计算任务，以实现更高的性能和效率。 sub-partition 的概念允许开发人员更精细地管理并行计算任务在 GPU 上的执行，从而最大程度地发挥硬件资源的潜力。
+Summary Cycles：在GPU上执行的周期数
+Compute Throughput：
+Memory Throughput:
+Registers：Number of registers allocated per thread
+Details GPU Speed Of Light Throughput Compute Workload Analysis Memory Workload Analysis 提高Memory的利用率和减少冗余的传输
+Scheduler Statistics Occupancy Analysis Warp State Statistics long scoreboard stall: 由于寄存器依赖关系导致的warp停滞,通常是global memory latency" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/nsight-compute/" /><meta property="og:image" content="http://localhost:1313/logo.png" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-02-26T18:26:30+08:00" />
+<meta property="article:modified_time" content="2024-02-26T18:26:30+08:00" /><meta property="og:site_name" content="Wangwei&#39;s Home" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="http://localhost:1313/logo.png" /><meta name="twitter:title" content="Nsight Compute note"/>
+<meta name="twitter:description" content="nsight compute GPUs: Pascal, Volta, Turing, Ampere, and future architectures
+报告所用exe由cuda-samples-11.8的vectorAdd项目生成
+some basic concepts SMSP: sub-partition of SM。在 NVIDIA GPU 中，&ldquo;sub-partition&rdquo; 是指在每个 Streaming Multiprocessor (SM) 中的物理资源分配单元。在某些 NVIDIA GPU 架构中，每个 SM 可以被进一步分成多个 sub-partition，每个 sub-partition 拥有自己的寄存器文件、共享内存以及其他资源。 这种细分使得每个 SM 内的资源能够更加灵活地分配给并行执行的线程块，从而提高了资源利用率和并行性。通过 sub-partition，开发人员可以更好地控制和优化在每个 SM 上执行的并行计算任务，以实现更高的性能和效率。 sub-partition 的概念允许开发人员更精细地管理并行计算任务在 GPU 上的执行，从而最大程度地发挥硬件资源的潜力。
+Summary Cycles：在GPU上执行的周期数
+Compute Throughput：
+Memory Throughput:
+Registers：Number of registers allocated per thread
+Details GPU Speed Of Light Throughput Compute Workload Analysis Memory Workload Analysis 提高Memory的利用率和减少冗余的传输
+Scheduler Statistics Occupancy Analysis Warp State Statistics long scoreboard stall: 由于寄存器依赖关系导致的warp停滞,通常是global memory latency"/>
+<meta name="application-name" content="Wangwei&#39;s Home">
+<meta name="apple-mobile-web-app-title" content="Wangwei&#39;s Home"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/nsight-compute/" /><link rel="prev" href="http://localhost:1313/gpu-distance/" /><link rel="next" href="http://localhost:1313/lie_group/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Nsight Compute note",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/localhost:1313\/nsight-compute\/"
+        },"image": ["http:\/\/localhost:1313\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  214 ,
+        "url": "http:\/\/localhost:1313\/nsight-compute\/","datePublished": "2024-02-26T18:26:30+08:00","dateModified": "2024-02-26T18:26:30+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": {
+                    "@type": "ImageObject",
+                    "url": "http:\/\/localhost:1313\/images\/avatar.png",
+                    "width":  1280 ,
+                    "height":  581 
+                }},"author": {
+                "@type": "Person",
+                "name": "wangwei"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Wangwei&#39;s Home"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Wangwei&#39;s Home</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><a class="menu-item" href="/about/"> About </a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="Select Language">
+                    <i class="fa fa-globe" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/nsight-compute/" selected>English</option></select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Wangwei&#39;s Home"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Wangwei&#39;s Home</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a class="menu-item" href="/about/" title="">About</a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="Select Language">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/nsight-compute/" selected>English</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Nsight Compute note</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="../../about" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>wangwei</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-02-26">2024-02-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;214 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#some-basic-concepts">some basic concepts</a></li>
+    <li><a href="#summary">Summary</a></li>
+    <li><a href="#details">Details</a>
+      <ul>
+        <li><a href="#gpu-speed-of-light-throughput">GPU Speed Of Light Throughput</a></li>
+        <li><a href="#compute-workload-analysis">Compute Workload Analysis</a></li>
+        <li><a href="#memory-workload-analysis">Memory Workload Analysis</a></li>
+        <li><a href="#scheduler-statistics">Scheduler Statistics</a></li>
+        <li><a href="#occupancy-analysis">Occupancy Analysis</a></li>
+        <li><a href="#warp-state-statistics">Warp State Statistics</a></li>
+        <li><a href="#instruction-statistics">Instruction Statistics</a></li>
+        <li><a href="#nvlink-topology">NVLink Topology</a></li>
+        <li><a href="#nvlink-tables">NVLink Tables</a></li>
+        <li><a href="#launch-statistics">Launch Statistics</a></li>
+        <li><a href="#occupancy">Occupancy</a></li>
+        <li><a href="#source-counters">Source Counters</a></li>
+      </ul>
+    </li>
+    <li><a href="#call-stack-nvt">Call Stack/ NVT</a></li>
+    <li><a href="#source">Source</a></li>
+    <li><a href="#raw">raw</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="nsight-compute">nsight compute</h1>
+<p>GPUs: Pascal, Volta, Turing, Ampere, and future architectures</p>
+<p>报告所用exe由<a href="https://github.com/NVIDIA/cuda-samples/releases/tag/v11.8" target="_blank" rel="noopener noreffer ">cuda-samples-11.8</a>的vectorAdd项目生成</p>
+<h2 id="some-basic-concepts">some basic concepts</h2>
+<blockquote>
+<p>SMSP:
+sub-partition of SM。在 NVIDIA GPU 中，&ldquo;sub-partition&rdquo; 是指在每个 Streaming Multiprocessor   (SM) 中的物理资源分配单元。在某些 NVIDIA GPU 架构中，每个 SM 可以被进一步分成多个 sub-partition，每个 sub-partition 拥有自己的寄存器文件、共享内存以及其他资源。
+这种细分使得每个 SM 内的资源能够更加灵活地分配给并行执行的线程块，从而提高了资源利用率和并行性。通过 sub-partition，开发人员可以更好地控制和优化在每个 SM 上执行的并行计算任务，以实现更高的性能和效率。
+sub-partition 的概念允许开发人员更精细地管理并行计算任务在 GPU 上的执行，从而最大程度地发挥硬件资源的潜力。</p>
+</blockquote>
+<h2 id="summary">Summary</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./pic/image2.png"
+        data-srcset="./pic/image2.png, ./pic/image2.png 1.5x, ./pic/image2.png 2x"
+        data-sizes="auto"
+        alt="./pic/image2.png"
+        title="title" /></p>
+<p>Cycles：在GPU上执行的周期数</p>
+<p>Compute Throughput：</p>
+<p>Memory Throughput:</p>
+<p>Registers：Number of registers allocated per thread</p>
+<h2 id="details">Details</h2>
+<h3 id="gpu-speed-of-light-throughput">GPU Speed Of Light Throughput</h3>
+<h3 id="compute-workload-analysis">Compute Workload Analysis</h3>
+<h3 id="memory-workload-analysis">Memory Workload Analysis</h3>
+<p>提高Memory的利用率和减少冗余的传输</p>
+<h3 id="scheduler-statistics">Scheduler Statistics</h3>
+<h3 id="occupancy-analysis">Occupancy Analysis</h3>
+<h3 id="warp-state-statistics">Warp State Statistics</h3>
+<p>long scoreboard stall: 由于寄存器依赖关系导致的warp停滞,通常是global memory latency</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">__global__</span> <span class="kt">void</span> <span class="nf">stall_reason_lsb</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span> <span class="n">dramptr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">tid</span> <span class="o">=</span> <span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">laneid</span> <span class="o">=</span> <span class="n">tid</span> <span class="o">%</span> <span class="mi">32</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dramptr</span><span class="p">[</span><span class="n">laneid</span><span class="p">]</span> <span class="o">=</span> <span class="n">laneid</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">__syncthreads</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">laneid</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#pragma unroll
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">1000</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">idx</span> <span class="o">=</span> <span class="n">dramptr</span><span class="p">[</span><span class="n">idx</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dramptr</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">idx</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>LG Throttle: too many &amp; frequent global access</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">__global__</span> <span class="kt">void</span> <span class="nf">stall_reason_lg_worst</span><span class="p">(</span><span class="kt">int8_t</span><span class="o">*</span> <span class="n">dramptr</span><span class="p">,</span> <span class="kt">int8_t</span><span class="o">*</span> <span class="n">dramptr2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">tid</span> <span class="o">=</span> <span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">offset</span> <span class="o">=</span> <span class="n">tid</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#pragma unroll
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">2000</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">dramptr2</span><span class="p">[</span><span class="n">offset</span> <span class="o">+</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">dramptr</span><span class="p">[</span><span class="n">offset</span> <span class="o">+</span> <span class="n">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>short scoreboard stall: 由于寄存器依赖关系导致的warp停滞,通常是shared memory latency</p>
+<h3 id="instruction-statistics">Instruction Statistics</h3>
+<h3 id="nvlink-topology">NVLink Topology</h3>
+<h3 id="nvlink-tables">NVLink Tables</h3>
+<h3 id="launch-statistics">Launch Statistics</h3>
+<h3 id="occupancy">Occupancy</h3>
+<h3 id="source-counters">Source Counters</h3>
+<h2 id="call-stack-nvt">Call Stack/ NVT</h2>
+<h2 id="source">Source</h2>
+<p>使用-lineinfo获得代码和指令的映射关系</p>
+<h2 id="raw">raw</h2>
+<p>记录原始的性能数据，包括各种指标，内存访问，指令执行，数据传输等
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./pic/image-1.png"
+        data-srcset="./pic/image-1.png, ./pic/image-1.png 1.5x, ./pic/image-1.png 2x"
+        data-sizes="auto"
+        alt="./pic/image-1.png"
+        title="./pic/image-1.png" /></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-02-26</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://localhost:1313/nsight-compute/" data-title="Nsight Compute note"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://localhost:1313/nsight-compute/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/nsight-compute/" data-title="Nsight Compute note"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://localhost:1313/nsight-compute/" data-title="Nsight Compute note"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://localhost:1313/nsight-compute/" data-title="Nsight Compute note"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/gpu-distance/" class="prev" rel="prev" title="distance computation"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>distance computation</a>
+            <a href="/lie_group/" class="next" rel="next" title="Lie Group">Lie Group<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.123.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="../../about" target="_blank">wangwei</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

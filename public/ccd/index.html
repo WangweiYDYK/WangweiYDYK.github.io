@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>mesh ccd - Wangwei&#39;s Home</title><meta name="Description" content="Wangwei&#39;s Home"><meta property="og:title" content="mesh ccd" />
+<meta property="og:description" content="mesh ccd 基本概念 false positives a collision is reported when there is no collision
+false negatives a collision is not reported when there is a collision
+Multivariate CCD Formulation $$\begin{align*} &amp;F_{\mathrm{vf}}(t, u, v)=p(t)-\left((1-u-v) v_1(t)&#43;u v_2(t)&#43;v v_3(t)\right)\\ &amp;F_{\mathrm{vf}}: \Omega_{\mathrm{vf}}=[0,1] \times\{u, v \geqslant 0 \mid u&#43;v \leqslant 1\} \rightarrow \mathbb{R}^3\\ &amp;F_{\mathrm{ee}}(t, u, v)=\left((1-u) p_1(t)&#43;u p_2(t)\right)-\left((1-v) p_3(t)&#43;v p_4(t)\right)\\ &amp;F_{\mathrm{ee}}: \Omega_{\mathrm{ee}}=[0,1] \times[0,1]^2 \rightarrow \mathbb{R}^3 \end{align*}$$
+Univariate CCD Formulation Normal Cone test 给定连续曲面S以及其边界C，若其不自交，则必须通过surface normal test和contour test" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/ccd/" /><meta property="og:image" content="http://localhost:1313/logo.png" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-05-01T19:08:59+08:00" />
+<meta property="article:modified_time" content="2023-05-01T19:08:59+08:00" /><meta property="og:site_name" content="Wangwei&#39;s Home" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="http://localhost:1313/logo.png" /><meta name="twitter:title" content="mesh ccd"/>
+<meta name="twitter:description" content="mesh ccd 基本概念 false positives a collision is reported when there is no collision
+false negatives a collision is not reported when there is a collision
+Multivariate CCD Formulation $$\begin{align*} &amp;F_{\mathrm{vf}}(t, u, v)=p(t)-\left((1-u-v) v_1(t)&#43;u v_2(t)&#43;v v_3(t)\right)\\ &amp;F_{\mathrm{vf}}: \Omega_{\mathrm{vf}}=[0,1] \times\{u, v \geqslant 0 \mid u&#43;v \leqslant 1\} \rightarrow \mathbb{R}^3\\ &amp;F_{\mathrm{ee}}(t, u, v)=\left((1-u) p_1(t)&#43;u p_2(t)\right)-\left((1-v) p_3(t)&#43;v p_4(t)\right)\\ &amp;F_{\mathrm{ee}}: \Omega_{\mathrm{ee}}=[0,1] \times[0,1]^2 \rightarrow \mathbb{R}^3 \end{align*}$$
+Univariate CCD Formulation Normal Cone test 给定连续曲面S以及其边界C，若其不自交，则必须通过surface normal test和contour test"/>
+<meta name="application-name" content="Wangwei&#39;s Home">
+<meta name="apple-mobile-web-app-title" content="Wangwei&#39;s Home"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/ccd/" /><link rel="prev" href="http://localhost:1313/cub/" /><link rel="next" href="http://localhost:1313/fem/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "mesh ccd",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/localhost:1313\/ccd\/"
+        },"image": ["http:\/\/localhost:1313\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "simulation","wordcount":  528 ,
+        "url": "http:\/\/localhost:1313\/ccd\/","datePublished": "2023-05-01T19:08:59+08:00","dateModified": "2023-05-01T19:08:59+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": {
+                    "@type": "ImageObject",
+                    "url": "http:\/\/localhost:1313\/images\/avatar.png",
+                    "width":  1280 ,
+                    "height":  581 
+                }},"author": {
+                "@type": "Person",
+                "name": "wangwei"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Wangwei&#39;s Home"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Wangwei&#39;s Home</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><a class="menu-item" href="/about/"> About </a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="Select Language">
+                    <i class="fa fa-globe" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/ccd/" selected>English</option></select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Wangwei&#39;s Home"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Wangwei&#39;s Home</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a class="menu-item" href="/about/" title="">About</a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="Select Language">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/ccd/" selected>English</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">mesh ccd</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="../../about" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>wangwei</a></span>&nbsp;<span class="post-category">included in <a href="/categories/simulation/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Simulation</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-05-01">2023-05-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;528 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#基本概念">基本概念</a>
+      <ul>
+        <li><a href="#false-positives">false positives</a></li>
+        <li><a href="#false-negatives">false negatives</a></li>
+        <li><a href="#multivariate-ccd-formulation">Multivariate CCD Formulation</a></li>
+        <li><a href="#univariate-ccd-formulation">Univariate CCD Formulation</a></li>
+        <li><a href="#normal-cone-test">Normal Cone test</a></li>
+        <li><a href="#continus-normal-cone">Continus Normal Cone</a></li>
+        <li><a href="#滤波器">滤波器</a></li>
+      </ul>
+    </li>
+    <li><a href="#ccd-root-finding">CCD Root finding</a></li>
+    <li><a href="#trajectories">Trajectories</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="mesh-ccd">mesh ccd</h1>
+<h2 id="基本概念">基本概念</h2>
+<h3 id="false-positives">false positives</h3>
+<p>a collision is reported when there is no collision</p>
+<h3 id="false-negatives">false negatives</h3>
+<p>a collision is not reported when there is a collision</p>
+<h3 id="multivariate-ccd-formulation">Multivariate CCD Formulation</h3>
+<p>$$\begin{align*}
+&amp;F_{\mathrm{vf}}(t, u, v)=p(t)-\left((1-u-v) v_1(t)+u v_2(t)+v v_3(t)\right)\\
+&amp;F_{\mathrm{vf}}: \Omega_{\mathrm{vf}}=[0,1] \times\{u, v \geqslant 0 \mid u+v \leqslant 1\} \rightarrow \mathbb{R}^3\\
+&amp;F_{\mathrm{ee}}(t, u, v)=\left((1-u) p_1(t)+u p_2(t)\right)-\left((1-v) p_3(t)+v p_4(t)\right)\\
+&amp;F_{\mathrm{ee}}: \Omega_{\mathrm{ee}}=[0,1] \times[0,1]^2 \rightarrow \mathbb{R}^3
+\end{align*}$$</p>
+<h3 id="univariate-ccd-formulation">Univariate CCD Formulation</h3>
+<h3 id="normal-cone-test">Normal Cone test</h3>
+<p>给定连续曲面S以及其边界C，若其不自交，则必须通过surface normal test和contour test</p>
+<p>1.存在一个向量$\vec{v}$，使(N.v)&gt; 0对曲面上的任意点都成立<br>
+2.轮廓C沿向量v的投影在投影平面上没有任何自交。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">cone</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3f</span> <span class="n">axis</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">float</span> <span class="n">angle</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// input two axis and get the one axis
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span> <span class="nf">set</span><span class="p">(</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3f</span> <span class="n">axis1</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3f</span> <span class="n">axis2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">axis</span> <span class="o">=</span> <span class="n">normalized</span><span class="p">(</span><span class="n">axis1</span> <span class="o">+</span> <span class="n">axis2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">angle</span> <span class="o">=</span> <span class="n">acos</span><span class="p">(</span><span class="n">axis1</span><span class="p">.</span><span class="n">dot</span><span class="p">(</span><span class="n">axis2</span><span class="p">))</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="continus-normal-cone">Continus Normal Cone</h3>
+<center>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./pic/1.png"
+        data-srcset="./pic/1.png, ./pic/1.png 1.5x, ./pic/1.png 2x"
+        data-sizes="auto"
+        alt="./pic/1.png"
+        title="avatar" /></p>
+</center>
+<!-- 给定一个可形变三角形，该三角形的在每一时刻的顶点位置可以通过线性插值得到，三角形的顶点分别为${a_0},{b_0},{c_0}$，下一时刻的顶点分别为${a_1},{b_1},{c_1}$，$\vec{V_a} = a_1 - a_0$, $\vec{V_b} = b_1 - b_0$, $\vec{V_c} = c_1 - c_0$  
+假设t时刻三角形的法向量为$\vec{n_t}$
+则 -->
+$$\mathbf{n}_{\mathbf{t}}=\mathbf{n}_{\mathbf{0}} \cdot B_{0}^{2}(t)+\left(\mathbf{n}_{\mathbf{0}}+\mathbf{n}_{\mathbf{1}}-\delta\right) / 2 \cdot B_{1}^{2}(t)+\mathbf{n}_{\mathbf{1}} \cdot B_{2}^{2}(t)$$
+<p>基于伯恩斯坦基控制点的凸包性质，$\vec{n}_t$受到控制点的限制，控制点为$\mathbf{n_0}, \mathbf{n_1}, \mathbf{(n_0 + n_1 - \delta)/2}$</p>
+<h3 id="滤波器">滤波器</h3>
+<p>代数非穿透滤波器(DNF)<br>
+可以剔除不满足共面条件的碰撞对</p>
+<blockquote>
+<p>对于点面碰撞对，首先计算出三角形 ABC 的法线向量 n，然后计算四个点
+PABC 在 n 上的投影点之间的距离，若距离为零，则 PABC 共面，否则不共面。</p>
+</blockquote>
+<p>空间线性投影滤波器</p>
+<p>可以剔除部分不满足内部条件的碰撞对</p>
+<blockquote>
+<p>将空间中的碰撞对投影到空间中的某条直线上，根据投影点的位置关系来剔除不可能发生碰撞的碰撞对。 在点面碰撞中，若点的投影点始终在三角形3个顶点的投影点的同一侧，则可剔除；在边边碰撞中，若一条边的两个顶点的投影点始终在另一条边的两个顶点的投影点的同一侧，则可剔除。</p>
+</blockquote>
+<p>基于深度神经网络优化的CCD算法剔除</p>
+<h2 id="ccd-root-finding">CCD Root finding</h2>
+<p>三次多项式或多变量求根问题，如果floating-point rounding error无限小，理论上可以精确求解CCD问题</p>
+<blockquote>
+<p>1.基于Inclusion的二分法求根</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// 基础的区间算法
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 代码源自CCD-Wrapper
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">namespace</span> <span class="n">Eigen</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="n">Matrix</span><span class="o">&lt;</span><span class="n">intervalccd</span><span class="o">::</span><span class="n">Interval</span><span class="p">,</span> <span class="n">Dynamic</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">ColMajor</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="o">&gt;</span> <span class="n">VectorX3I</span><span class="p">;</span>    <span class="c1">//定义一个行数可变，但是不大于3，列数固定为1的列向量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="nf">interval_root_finder</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">VectorX3I</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">VectorX3I</span><span class="o">&amp;</span><span class="p">)</span><span class="o">&gt;&amp;</span> <span class="n">f</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                       <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">bool</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">VectorX3I</span><span class="o">&amp;</span><span class="p">)</span><span class="o">&gt;&amp;</span> <span class="n">constraint_predicate</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                       <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">VectorX3I</span><span class="o">&amp;</span> <span class="n">x0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                       <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">VectorX3d</span><span class="o">&amp;</span> <span class="n">tol</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                       <span class="n">Eigen</span><span class="o">::</span><span class="n">VectorX3I</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">,</span><span class="k">const</span> <span class="kt">bool</span> <span class="n">check_vf</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="n">std</span><span class="o">::</span><span class="n">stack</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">VectorX3I</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">xs</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">   <span class="n">xs</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">   <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">xs</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">   <span class="p">{</span>
+</span></span><span class="line"><span class="cl">       <span class="c1">// copresond to line 6
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="n">x</span> <span class="o">=</span> <span class="n">xs</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">first</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">       <span class="kt">int</span> <span class="n">last_split</span> <span class="o">=</span> <span class="n">xs</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">second</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">       <span class="n">xs</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="c1">// copresond to line 7
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="c1">// compute the inclusion function
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="n">Eigen</span><span class="o">::</span><span class="n">VectorX3I</span> <span class="n">y</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">zero_in</span><span class="p">(</span><span class="n">y</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">           <span class="k">continue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">       <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="n">Eigen</span><span class="o">::</span><span class="n">VectorX3d</span> <span class="n">widths</span> <span class="o">=</span> <span class="n">width</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">       <span class="k">if</span> <span class="p">((</span><span class="n">widths</span><span class="p">.</span><span class="n">array</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="n">tol</span><span class="p">.</span><span class="n">array</span><span class="p">()).</span><span class="n">all</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">           <span class="k">if</span> <span class="p">(</span><span class="n">constraint_predicate</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">               <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">           <span class="p">}</span>
+</span></span><span class="line"><span class="cl">           <span class="k">continue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">       <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="c1">// Bisect the next dimension that is greater than its tolerance
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="kt">int</span> <span class="n">split_i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">       <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">x</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">           <span class="n">split_i</span> <span class="o">=</span> <span class="p">(</span><span class="n">last_split</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="o">%</span> <span class="n">x</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">           <span class="k">if</span> <span class="p">(</span><span class="n">widths</span><span class="p">(</span><span class="n">split_i</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">tol</span><span class="p">(</span><span class="n">split_i</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">               <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">           <span class="p">}</span>
+</span></span><span class="line"><span class="cl">       <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">Interval</span><span class="p">,</span> <span class="n">Interval</span><span class="o">&gt;</span> <span class="n">halves</span> <span class="o">=</span> <span class="n">bisect</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">split_i</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">       <span class="n">Eigen</span><span class="o">::</span><span class="n">VectorX3I</span> <span class="n">x1</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">       <span class="c1">// Push the second half on first so it is examined after the first half
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="k">if</span><span class="p">(</span><span class="n">check_vf</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">           <span class="k">if</span><span class="p">(</span><span class="n">split_i</span><span class="o">==</span><span class="mi">1</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">               <span class="k">if</span><span class="p">(</span><span class="n">interval_satisfy_constrain</span><span class="p">(</span><span class="n">halves</span><span class="p">.</span><span class="n">second</span><span class="p">,</span><span class="n">x</span><span class="p">(</span><span class="mi">2</span><span class="p">))){</span>
+</span></span><span class="line"><span class="cl">                   <span class="n">x</span><span class="p">(</span><span class="n">split_i</span><span class="p">)</span> <span class="o">=</span> <span class="n">halves</span><span class="p">.</span><span class="n">second</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                   <span class="n">xs</span><span class="p">.</span><span class="n">emplace</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">split_i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">               <span class="p">}</span>
+</span></span><span class="line"><span class="cl">               <span class="k">if</span><span class="p">(</span><span class="n">interval_satisfy_constrain</span><span class="p">(</span><span class="n">halves</span><span class="p">.</span><span class="n">first</span><span class="p">,</span><span class="n">x</span><span class="p">(</span><span class="mi">2</span><span class="p">))){</span>
+</span></span><span class="line"><span class="cl">                   <span class="n">x</span><span class="p">(</span><span class="n">split_i</span><span class="p">)</span> <span class="o">=</span> <span class="n">halves</span><span class="p">.</span><span class="n">first</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                   <span class="n">xs</span><span class="p">.</span><span class="n">emplace</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">split_i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">               <span class="p">}</span>
+</span></span><span class="line"><span class="cl">           <span class="p">}</span>
+</span></span><span class="line"><span class="cl">           <span class="k">if</span><span class="p">(</span><span class="n">split_i</span><span class="o">==</span><span class="mi">2</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">               <span class="k">if</span><span class="p">(</span><span class="n">interval_satisfy_constrain</span><span class="p">(</span><span class="n">halves</span><span class="p">.</span><span class="n">second</span><span class="p">,</span><span class="n">x</span><span class="p">(</span><span class="mi">1</span><span class="p">))){</span>
+</span></span><span class="line"><span class="cl">                   <span class="n">x</span><span class="p">(</span><span class="n">split_i</span><span class="p">)</span> <span class="o">=</span> <span class="n">halves</span><span class="p">.</span><span class="n">second</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                   <span class="n">xs</span><span class="p">.</span><span class="n">emplace</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">split_i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">               <span class="p">}</span>
+</span></span><span class="line"><span class="cl">               <span class="k">if</span><span class="p">(</span><span class="n">interval_satisfy_constrain</span><span class="p">(</span><span class="n">halves</span><span class="p">.</span><span class="n">first</span><span class="p">,</span><span class="n">x</span><span class="p">(</span><span class="mi">1</span><span class="p">))){</span>
+</span></span><span class="line"><span class="cl">                   <span class="n">x</span><span class="p">(</span><span class="n">split_i</span><span class="p">)</span> <span class="o">=</span> <span class="n">halves</span><span class="p">.</span><span class="n">first</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                   <span class="n">xs</span><span class="p">.</span><span class="n">emplace</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">split_i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">               <span class="p">}</span>
+</span></span><span class="line"><span class="cl">           <span class="p">}</span>
+</span></span><span class="line"><span class="cl">           <span class="k">if</span><span class="p">(</span><span class="n">split_i</span><span class="o">==</span><span class="mi">0</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">               <span class="n">x</span><span class="p">(</span><span class="n">split_i</span><span class="p">)</span> <span class="o">=</span> <span class="n">halves</span><span class="p">.</span><span class="n">second</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">               <span class="n">xs</span><span class="p">.</span><span class="n">emplace</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">split_i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">               <span class="n">x</span><span class="p">(</span><span class="n">split_i</span><span class="p">)</span> <span class="o">=</span> <span class="n">halves</span><span class="p">.</span><span class="n">first</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">               <span class="n">xs</span><span class="p">.</span><span class="n">emplace</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">split_i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">           <span class="p">}</span>
+</span></span><span class="line"><span class="cl">       <span class="p">}</span>
+</span></span><span class="line"><span class="cl">       <span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">           <span class="n">x</span><span class="p">(</span><span class="n">split_i</span><span class="p">)</span> <span class="o">=</span> <span class="n">halves</span><span class="p">.</span><span class="n">second</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">           <span class="n">xs</span><span class="p">.</span><span class="n">emplace</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">split_i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">           <span class="n">x</span><span class="p">(</span><span class="n">split_i</span><span class="p">)</span> <span class="o">=</span> <span class="n">halves</span><span class="p">.</span><span class="n">first</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">           <span class="n">xs</span><span class="p">.</span><span class="n">emplace</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">split_i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">       <span class="p">}</span>
+</span></span><span class="line"><span class="cl">       
+</span></span><span class="line"><span class="cl">       
+</span></span><span class="line"><span class="cl">   <span class="p">}</span>
+</span></span><span class="line"><span class="cl">   <span class="p">}</span>
+</span></span><span class="line"><span class="cl">   <span class="k">return</span> <span class="nb">false</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>2.浮点数高精度运算<br>
+3.将数值问题转换为射线求交问题</p>
+</blockquote>
+<p>大多数基于单变量公式的算法都会产生false negative</p>
+<table>
+<thead>
+<tr>
+<th>求解器</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>interval root-finder (IRF)</td>
+<td>没有false negative，有少量的false positive，可以通过调整容差，通过准确性换取效率</td>
+<td>区间算法为计算提增加了性能开销，例如计算两个区间的乘积$[a,b] [c,d] = [min(ac,ad,bc,bd),max(ac,ad,bc,bd)]$,需要四次乘法和两次min max操作</td>
+</tr>
+<tr>
+<td>univariate interval root-finder (UIRF) 刚体ccd的特殊情况</td>
+<td></td>
+<td>如果多项式有无穷根，那么该算法将必须将整个域细化到最大允许分辨率，并检查每个区间的有效性，使其正确，但在退化情况下非常慢。这导致比多变量对应的平均运行时间更长。此外，也不可能控制其他两个参数（即u、v）的准确性，从而引入更多的假阳性。</td>
+</tr>
+<tr>
+<td>floating-point time-of-impact root finder (FPRF)</td>
+<td>这种方法是速度最快的方法之一，是许多仿真代码中的主选。</td>
+<td></td>
+</tr>
+<tr>
+<td>TightCCD (TCCD)</td>
+<td>保守的基于浮点数的实现，速度快，唯一没有false negative的非区间方法</td>
+<td>产生了许多不可控制的false positive，这些false positive可能会导致不必要的碰撞检测，从而降低了整体性能。</td>
+</tr>
+<tr>
+<td>Root Parity (RP)</td>
+<td></td>
+<td>根据根的奇偶性来判断是否有碰撞，但是无法区分0根和重根</td>
+</tr>
+<tr>
+<td>rational implementation of Root Parity (RRP)</td>
+<td></td>
+<td>根据根的奇偶性来判断是否有碰撞，但是无法区分0根和重根</td>
+</tr>
+<tr>
+<td>BSC</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>MSRF</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Exact-Root-Parity-CCD</td>
+<td>基于RP方法，修复了其部分问题</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<center>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./pic/ccd_compare.png"
+        data-srcset="./pic/ccd_compare.png, ./pic/ccd_compare.png 1.5x, ./pic/ccd_compare.png 2x"
+        data-sizes="auto"
+        alt="./pic/ccd_compare.png"
+        title="图源自A Large-scale Benchmark and an Inclusion-based Algorithm for Continuous Collision Detection" /></p>
+</center>
+<p>大多数使用单变量公式的算法都有false negative</p>
+<h2 id="trajectories">Trajectories</h2>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-05-01</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://localhost:1313/ccd/" data-title="mesh ccd" data-hashtags="simulation"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://localhost:1313/ccd/" data-hashtag="simulation"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/ccd/" data-title="mesh ccd"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://localhost:1313/ccd/" data-title="mesh ccd"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://localhost:1313/ccd/" data-title="mesh ccd"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/simulation/">Simulation</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/cub/" class="prev" rel="prev" title="Reduction"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Reduction</a>
+            <a href="/fem/" class="next" rel="next" title="FEM">FEM<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.123.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="../../about" target="_blank">wangwei</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

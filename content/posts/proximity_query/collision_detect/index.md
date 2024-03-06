@@ -4,7 +4,28 @@ date = 2024-02-26T19:08:59+08:00
 draft = true
 +++
 
-# collision Detect
+# ccd
+
+## 基本概念
+
+false positives:a collision is reported when there is no collision
+false negatives: a collision is not reported when there is a collision
+VF test
+EE test
+BVTT: 
+Broad Phase
+Narrow Phase
+```cpp
+    struct bvtt_SoA
+    {
+        int* id1;
+        int* id2
+    };
+```
+
+BVTT front:
+
+## 三次方程求解
 
 # CCD的邻接三角形对Culling
 
