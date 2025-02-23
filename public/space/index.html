@@ -7,7 +7,7 @@
         <title>space - Wangwei&#39;s Home</title><meta name="Description" content="Wangwei&#39;s Home"><meta property="og:title" content="space" />
 <meta property="og:description" content="空间 空间 = 几何 &#43; 结构(规则？)
 线性空间： 给定一个域$F$和一个空间$V$,对空间中的元素定义两个二元运算：加法和数乘，若定义出来的二元运算满足以下性质，则称该空间为线性空间或者向量空间 度量空间： 定义了距离的空间，要求距离满足 如欧几里得距离，曼哈顿距离 赋范空间： 对于线性空间中的元素计算其长度
-内积空间
+内积空间 内积是角度的推广
 巴纳赫空间
 希尔伯特空间" />
 <meta property="og:type" content="article" />
@@ -19,13 +19,13 @@
 <meta name="twitter:image" content="http://localhost:1313/logo.png" /><meta name="twitter:title" content="space"/>
 <meta name="twitter:description" content="空间 空间 = 几何 &#43; 结构(规则？)
 线性空间： 给定一个域$F$和一个空间$V$,对空间中的元素定义两个二元运算：加法和数乘，若定义出来的二元运算满足以下性质，则称该空间为线性空间或者向量空间 度量空间： 定义了距离的空间，要求距离满足 如欧几里得距离，曼哈顿距离 赋范空间： 对于线性空间中的元素计算其长度
-内积空间
+内积空间 内积是角度的推广
 巴纳赫空间
 希尔伯特空间"/>
 <meta name="application-name" content="Wangwei&#39;s Home">
 <meta name="apple-mobile-web-app-title" content="Wangwei&#39;s Home"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/space/" /><link rel="prev" href="http://localhost:1313/nsight-compute/" /><link rel="next" href="http://localhost:1313/lie_group/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/space/" /><link rel="prev" href="http://localhost:1313/sum-of-square-ccd/" /><link rel="next" href="http://localhost:1313/reference_of_differential_geometry/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
     {
@@ -36,7 +36,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/localhost:1313\/space\/"
-        },"image": ["http:\/\/localhost:1313\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  16 ,
+        },"image": ["http:\/\/localhost:1313\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  17 ,
         "url": "http:\/\/localhost:1313\/space\/","datePublished": "2024-02-26T19:08:59+08:00","dateModified": "2024-02-26T19:08:59+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -121,7 +121,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">space</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="../../about" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>wangwei</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-02-26">2024-02-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;16 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-02-26">2024-02-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;17 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -138,7 +138,8 @@
 如欧几里得距离，曼哈顿距离
 赋范空间：
 对于线性空间中的元素计算其长度</p>
-<p>内积空间</p>
+<p>内积空间
+内积是角度的推广</p>
 <p>巴纳赫空间</p>
 <p>希尔伯特空间</p>
 </div><div class="post-footer" id="post-footer">
@@ -162,13 +163,13 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/nsight-compute/" class="prev" rel="prev" title="Nsight Compute note"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Nsight Compute note</a>
-            <a href="/lie_group/" class="next" rel="next" title="Lie Group">Lie Group<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+    <div class="post-nav"><a href="/sum-of-square-ccd/" class="prev" rel="prev" title="sum-of-square ccd"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>sum-of-square ccd</a>
+            <a href="/reference_of_differential_geometry/" class="next" rel="next" title="Reference for Differential Geometry">Reference for Differential Geometry<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 </article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.123.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="../../about" target="_blank">wangwei</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="../../about" target="_blank">wangwei</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

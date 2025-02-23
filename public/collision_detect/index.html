@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>collision detect - Wangwei&#39;s Home</title><meta name="Description" content="Wangwei&#39;s Home"><meta property="og:title" content="collision detect" />
+<meta property="og:description" content="ccd 基本概念 false positives:a collision is reported when there is no collision false negatives: a collision is not reported when there is a collision VF test EE test BVTT: Broad Phase Narrow Phase
+1 2 3 4 5 struct bvtt_SoA { int* id1; int* id2 }; BVTT front:
+三次方程求解 CCD的邻接三角形对Culling 算法流程 邻接三角形对类型 相较于刚性模型或者铰接模型，可形变模型的CCD的效率主要受到自碰撞的影响。
+自碰撞可进一步分为两种类型：相邻三角形之间的自碰撞和非相邻三角形之间的自碰撞 在CCD中，相邻三角形对计算占主要部分
+AVTP
+AETP
+NTP
+静态潜在碰撞对（static potential colliding feature pairs） 这些特征对是作为来自所有相邻三角形对（AVTPs和AETPs）的预处理的一部分而生成的。它们被收集一次，并在整个模拟过程中保持不变。之后的模拟步长中，将会忽略邻接三角形对而是直接从中进行culling
+动态潜在碰撞对（dynamic potential colliding feature pairs） 若NTP对中出现包围盒碰撞，则将其加入，并在每个模拟步长中进行更新" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/collision_detect/" /><meta property="og:image" content="http://localhost:1313/logo.png" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-02-26T19:08:59+08:00" />
+<meta property="article:modified_time" content="2024-02-26T19:08:59+08:00" /><meta property="og:site_name" content="Wangwei&#39;s Home" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="http://localhost:1313/logo.png" /><meta name="twitter:title" content="collision detect"/>
+<meta name="twitter:description" content="ccd 基本概念 false positives:a collision is reported when there is no collision false negatives: a collision is not reported when there is a collision VF test EE test BVTT: Broad Phase Narrow Phase
+1 2 3 4 5 struct bvtt_SoA { int* id1; int* id2 }; BVTT front:
+三次方程求解 CCD的邻接三角形对Culling 算法流程 邻接三角形对类型 相较于刚性模型或者铰接模型，可形变模型的CCD的效率主要受到自碰撞的影响。
+自碰撞可进一步分为两种类型：相邻三角形之间的自碰撞和非相邻三角形之间的自碰撞 在CCD中，相邻三角形对计算占主要部分
+AVTP
+AETP
+NTP
+静态潜在碰撞对（static potential colliding feature pairs） 这些特征对是作为来自所有相邻三角形对（AVTPs和AETPs）的预处理的一部分而生成的。它们被收集一次，并在整个模拟过程中保持不变。之后的模拟步长中，将会忽略邻接三角形对而是直接从中进行culling
+动态潜在碰撞对（dynamic potential colliding feature pairs） 若NTP对中出现包围盒碰撞，则将其加入，并在每个模拟步长中进行更新"/>
+<meta name="application-name" content="Wangwei&#39;s Home">
+<meta name="apple-mobile-web-app-title" content="Wangwei&#39;s Home"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/collision_detect/" /><link rel="prev" href="http://localhost:1313/tools/" /><link rel="next" href="http://localhost:1313/cppqa/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "collision detect",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/localhost:1313\/collision_detect\/"
+        },"image": ["http:\/\/localhost:1313\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  99 ,
+        "url": "http:\/\/localhost:1313\/collision_detect\/","datePublished": "2024-02-26T19:08:59+08:00","dateModified": "2024-02-26T19:08:59+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": {
+                    "@type": "ImageObject",
+                    "url": "http:\/\/localhost:1313\/images\/avatar.png",
+                    "width":  1280 ,
+                    "height":  581 
+                }},"author": {
+                "@type": "Person",
+                "name": "wangwei"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Wangwei&#39;s Home"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Wangwei&#39;s Home</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><a class="menu-item" href="/about/"> About </a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="Select Language">
+                    <i class="fa fa-globe" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/collision_detect/" selected>English</option></select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Wangwei&#39;s Home"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Wangwei&#39;s Home</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a class="menu-item" href="/about/" title="">About</a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="Select Language">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/collision_detect/" selected>English</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">collision detect</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="../../about" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>wangwei</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-02-26">2024-02-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;99 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#基本概念">基本概念</a></li>
+    <li><a href="#三次方程求解">三次方程求解</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#算法流程">算法流程</a></li>
+    <li><a href="#邻接三角形对类型">邻接三角形对类型</a>
+      <ul>
+        <li><a href="#静态潜在碰撞对static-potential-colliding-feature-pairs">静态潜在碰撞对（static potential colliding feature pairs）</a></li>
+        <li><a href="#动态潜在碰撞对dynamic-potential-colliding-feature-pairs">动态潜在碰撞对（dynamic potential colliding feature pairs）</a></li>
+      </ul>
+    </li>
+    <li><a href="#avtp-culling">AVTP Culling</a></li>
+    <li><a href="#aetp-culling">AETP Culling</a></li>
+    <li><a href="#基于表的重复消除">基于表的重复消除</a></li>
+    <li><a href="#参考文献">参考文献</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="ccd">ccd</h1>
+<h2 id="基本概念">基本概念</h2>
+<p>false positives:a collision is reported when there is no collision
+false negatives: a collision is not reported when there is a collision
+VF test
+EE test
+BVTT:
+Broad Phase
+Narrow Phase</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">    <span class="k">struct</span> <span class="nc">bvtt_SoA</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span><span class="o">*</span> <span class="n">id1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span><span class="o">*</span> <span class="n">id2</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>BVTT front:</p>
+<h2 id="三次方程求解">三次方程求解</h2>
+<h1 id="ccd的邻接三角形对culling">CCD的邻接三角形对Culling</h1>
+<h2 id="算法流程">算法流程</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="pic/AdjacentTriangleCullingAlgorithm.png"
+        data-srcset="pic/AdjacentTriangleCullingAlgorithm.png, pic/AdjacentTriangleCullingAlgorithm.png 1.5x, pic/AdjacentTriangleCullingAlgorithm.png 2x"
+        data-sizes="auto"
+        alt="pic/AdjacentTriangleCullingAlgorithm.png"
+        title="avatar" /></p>
+<h2 id="邻接三角形对类型">邻接三角形对类型</h2>
+<p>相较于刚性模型或者铰接模型，可形变模型的CCD的效率主要受到自碰撞的影响。<br>
+自碰撞可进一步分为两种类型：相邻三角形之间的自碰撞和非相邻三角形之间的自碰撞
+在CCD中，相邻三角形对计算占主要部分</p>
+<p>AVTP<br>
+AETP<br>
+NTP</p>
+<h3 id="静态潜在碰撞对static-potential-colliding-feature-pairs">静态潜在碰撞对（static potential colliding feature pairs）</h3>
+<p>这些特征对是作为来自所有相邻三角形对（AVTPs和AETPs）的预处理的一部分而生成的。它们被收集一次，并在整个模拟过程中保持不变。之后的模拟步长中，将会忽略邻接三角形对而是直接从中进行culling</p>
+<h3 id="动态潜在碰撞对dynamic-potential-colliding-feature-pairs">动态潜在碰撞对（dynamic potential colliding feature pairs）</h3>
+<p>若NTP对中出现包围盒碰撞，则将其加入，并在每个模拟步长中进行更新</p>
+<h2 id="avtp-culling">AVTP Culling</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="pic/AVTP-Culling.png"
+        data-srcset="pic/AVTP-Culling.png, pic/AVTP-Culling.png 1.5x, pic/AVTP-Culling.png 2x"
+        data-sizes="auto"
+        alt="pic/AVTP-Culling.png"
+        title="avatar" /></p>
+<p>若满足该条件，所有的9个初等检验都可以被剔除。否则，根据该定理失败的情况，算法将$CCD_{sub}(t_d，t_b)$、$CCD_{sub}(t_a,t_c)$或两者对应的特征对记录为静态潜在碰撞特征对。</p>
+<h2 id="aetp-culling">AETP Culling</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="pic/AETP-Culling.png"
+        data-srcset="pic/AETP-Culling.png, pic/AETP-Culling.png 1.5x, pic/AETP-Culling.png 2x"
+        data-sizes="auto"
+        alt="pic/AETP-Culling.png"
+        title="avatar" /></p>
+<p>若满足该条件可以跳过AETP中的所有4个测试，否则根据根据失败的原因，将$CCD_{sub}(t_a,t_c)$或$CCD_{sub}(t_b,t_d)$或者二者都作为静态潜在碰撞特征对</p>
+<p>该定理的几何意义在于，除了AETP处于边界（即$t_c$或$t_d$不存在）外，几乎所有所有与AETP相关的特征对已经被AVTP测试阶段覆盖。因此，在大多数情况下，都可以跳过这些特征对。</p>
+<h2 id="基于表的重复消除">基于表的重复消除</h2>
+<p>将特征对存储为$\left[\left{e_{i}, e_{j}\right}, r_{i j}\right]$或者$\left[\left{v_{k}, t_{l}\right}, r_{k l}\right]$。其中$r_{ij}$和$r_{kl}$分别是特征对${e_i、e_j}$和${v_k、t_l}$的基本测试结果。</p>
+<p>对于需要进行精确碰撞测试的特征对，我们首先在特征测试表中搜索这对特征对。如果已经测试了特性对，则将返回存储的结果。否则，将调用三次方程求解器来计算特征对之间的接触时间。然后将接触时间保存到特征测试表中，并结果返回。</p>
+<p>表搜索策略非常简单而有效。通过为每个特征（即边、顶点和三角形）分配一个唯一的id，特征测试表可以实现为一个哈希表。在基准测试中，哈希表实现在删除所有重复项方面是相当有效的。由于使用基于邻接的culling已经减少了很大一部分的假阳性，因此基于表的重复消除减少了许多其他特征对。</p>
+<h2 id="参考文献">参考文献</h2>
+<p><a href="./paper" rel="">Tang etc - 2008 - Adjacency-based culling for continuous collision d.pdf</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-02-26</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://localhost:1313/collision_detect/" data-title="collision detect"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://localhost:1313/collision_detect/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/collision_detect/" data-title="collision detect"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://localhost:1313/collision_detect/" data-title="collision detect"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://localhost:1313/collision_detect/" data-title="collision detect"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/tools/" class="prev" rel="prev" title="collision detect"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>collision detect</a>
+            <a href="/cppqa/" class="next" rel="next" title="collision detect">collision detect<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.123.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="../../about" target="_blank">wangwei</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
