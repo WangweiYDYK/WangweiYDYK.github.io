@@ -10,12 +10,12 @@ draft = true
 
 ## 优化方向
 
-| 优化方向 |
-|---------|
-| Divergent branching |
-| bank conflicts |
-| memory coalescing |
-| Latency hiding |
+| 优化方向             |
+| -------------------- |
+| Divergent branching  |
+| bank conflicts       |
+| memory coalescing    |
+| Latency hiding       |
 | Instruction overhead |
 
 ## 1.循环展开
@@ -132,3 +132,20 @@ kernel()
 对于二位数组的传输，可以使用cudaMemcpy2D()函数，这样可以减少内存的传输次数。
 
 ## Nsight的使用
+
+### atomic operation
+
+```cpp
+	__device__ int atomicAggInc(int *ctr) {
+		int mask = __ballot_sync(__activemask(), 1), leader, res;
+		// select the leader
+		leader = __ffs(mask) - 1;
+		// leader does the update
+		if (lane_id() == leader)
+			res = atomicAdd(ctr, __popc(mask));
+		// broadcast result
+		res = warp_bcast(res, leader);
+		// each thread computes its own value
+		return res + __popc(mask & ((1 << lane_id()) - 1));
+	}
+```

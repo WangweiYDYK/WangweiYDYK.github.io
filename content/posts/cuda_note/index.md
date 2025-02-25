@@ -15,3 +15,7 @@ draft = true
 
 Tensor core
 RT core
+
+Latency Hiding
+
+GPU的warp线程切换0成本

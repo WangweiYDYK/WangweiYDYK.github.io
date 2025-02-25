@@ -8,6 +8,16 @@
             <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
         <item>
     <title>Abstract Algebra</title>
+    <link>http://localhost:1313/hw1/</link>
+    <pubDate>Mon, 26 Feb 2024 19:08:59 &#43;0800</pubDate>
+    <author>wangwei</author>
+    <guid>http://localhost:1313/hw1/</guid>
+    <description><![CDATA[hw1 Q2 a $a\circ b\in G$。 $$\mathbf{A}x = \lambda x$$ $$\mathbf{A}^n x = \lambda ^ n x$$ $$ k\mathbf{A}^n x = k \lambda ^ n x$$ $$(c_k \mathbf{A}^k + c_{k-1} \mathbf{A}^{k-1} + \cdots + c_1 \mathbf{A} + c_0 \mathbf{I})x = (c_k \lambda^k + c_{k-1} \lambda^{k-1} + \cdots + c_1 \lambda + c_0 )x$$ 即有 f(λ) 为 f(A) 的特征值。
+c $$e^{\mathbf{A}}= \sum_{k=0}^{\infty} \frac{1}{k!} \mathbf{P}^{-1}\Lambda^{k} \mathbf{P}= \mathbf{P}^{-1}(\sum_{k=0}^{\infty} \frac{1}{k!}\Lambda^{k}) \mathbf{P}$$
+$$e^{\mathbf{A}^T}= \sum_{k=0}^{\infty} \frac{1}{k!} \mathbf{P}^{T}\Lambda^{k} \mathbf{P}^{-1^T}= \mathbf{P}^{T}(\sum_{k=0}^{\infty} \frac{1}{k!]]></description>
+</item>
+<item>
+    <title>Abstract Algebra</title>
     <link>http://localhost:1313/basic_concepts/</link>
     <pubDate>Mon, 26 Feb 2024 19:08:59 &#43;0800</pubDate>
     <author>wangwei</author>

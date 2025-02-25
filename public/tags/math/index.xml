@@ -6,6 +6,15 @@
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>1028963346@qq.com (wangwei)</managingEditor>
             <webMaster>1028963346@qq.com (wangwei)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 26 Feb 2024 19:08:59 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/tags/math/" rel="self" type="application/rss+xml" /><item>
     <title>Abstract Algebra</title>
+    <link>http://localhost:1313/hw1/</link>
+    <pubDate>Mon, 26 Feb 2024 19:08:59 &#43;0800</pubDate>
+    <author>wangwei</author>
+    <guid>http://localhost:1313/hw1/</guid>
+    <description><![CDATA[hw1 Q2 a $a\circ b\in G$。 $$\mathbf{A}x = \lambda x$$ $$\mathbf{A}^n x = \lambda ^ n x$$ $$ k\mathbf{A}^n x = k \lambda ^ n x$$ $$(c_k \mathbf{A}^k + c_{k-1} \mathbf{A}^{k-1} + \cdots + c_1 \mathbf{A} + c_0 \mathbf{I})x = (c_k \lambda^k + c_{k-1} \lambda^{k-1} + \cdots + c_1 \lambda + c_0 )x$$ 即有 f(λ) 为 f(A) 的特征值。
+c 假设矩阵$A$可对角化为$P^{-1}QP$，其中$Q$为对角矩阵 则$e^\mathbf{A} = $]]></description>
+</item>
+<item>
+    <title>Abstract Algebra</title>
     <link>http://localhost:1313/basic_concepts/</link>
     <pubDate>Mon, 26 Feb 2024 19:08:59 &#43;0800</pubDate>
     <author>wangwei</author>
