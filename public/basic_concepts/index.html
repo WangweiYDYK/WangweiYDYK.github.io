@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>Abstract Algebra - Wangwei&#39;s Home</title><meta name="Description" content="Wangwei&#39;s Home"><meta property="og:title" content="Abstract Algebra" />
-<meta property="og:description" content="抽象代数 1.1 群 满足四个性质：
+
+<head>
+    <script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title>Abstract Algebra - Wangwei&#39;s Home</title>
+    <meta name="Description" content="Wangwei&#39;s Home">
+    <meta property="og:title" content="Abstract Algebra" />
+    <meta property="og:description" content="抽象代数 1.1 群 满足四个性质：
 封闭性：对于任意的$a,b\in G$，都有$a\circ b\in G$。 结合律：对于任意的$a,b,c\in G$，都有$(a\circ b)\circ c=a\circ(b\circ c)$。 幺元：存在一个元素$e\in G$，使得对于任意的$a\in G$，都有$e\circ a=a\circ e=a$。 逆元：对于任意的$a\in G$，都存在一个元素$b\in G$，使得$a\circ b=b\circ a=e$。 可以看到群并没有要求交换律。如果群内任意元素均满足$a\circ b=b\circ a$，则称该群为阿贝尔群。
 半群： 满足封闭性和结合律，但不满足幺元和逆元。
 1.2 群的同构和同态 同构： 若群$G$和$H$之间存在一个双射$\varphi:G\to H$,使得$f(a)=A$和$f(b)=B$，则有$f(a\circ b)=f(a)\ast f(b)$。
@@ -18,17 +22,22 @@
 特殊欧式群$SE(n)$:
 特殊射影群$SP(n)$
 循环群：
-交换群对称群：n个对象所有的重新排列组成对称群$S_n$，可参考(https://zhuanlan.zhihu.com/p/402197369)
+交换群
+对称群：n个对象所有的重新排列组成对称群$S_n$，可参考(https://zhuanlan.zhihu.com/p/402197369)
 环 2.1 环的定义 如果一个非空集合$R$上定义了两个二元运算$&#43;$和$\times$，分别称为加法和乘法，满足： （1）$(R,&#43;)$是阿贝尔群 （2）$(R,\times)$是半群 （3）乘法对于加法满足左分配律、右分配律，则称$R$ 关于运算$\times$，$&#43;$构成一个环（ring），记为$(R,&#43;,\times)$
 域 " />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://localhost:1313/basic_concepts/" /><meta property="og:image" content="http://localhost:1313/logo.png" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2024-02-26T19:08:59+08:00" />
-<meta property="article:modified_time" content="2024-02-26T19:08:59+08:00" /><meta property="og:site_name" content="Wangwei&#39;s Home" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="http://localhost:1313/basic_concepts/" />
+    <meta property="og:image" content="http://localhost:1313/logo.png" />
+    <meta property="article:section" content="posts" />
+    <meta property="article:published_time" content="2024-02-26T19:08:59+08:00" />
+    <meta property="article:modified_time" content="2024-02-26T19:08:59+08:00" />
+    <meta property="og:site_name" content="Wangwei&#39;s Home" />
 
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="http://localhost:1313/logo.png" /><meta name="twitter:title" content="Abstract Algebra"/>
-<meta name="twitter:description" content="抽象代数 1.1 群 满足四个性质：
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="http://localhost:1313/logo.png" />
+    <meta name="twitter:title" content="Abstract Algebra" />
+    <meta name="twitter:description" content="抽象代数 1.1 群 满足四个性质：
 封闭性：对于任意的$a,b\in G$，都有$a\circ b\in G$。 结合律：对于任意的$a,b,c\in G$，都有$(a\circ b)\circ c=a\circ(b\circ c)$。 幺元：存在一个元素$e\in G$，使得对于任意的$a\in G$，都有$e\circ a=a\circ e=a$。 逆元：对于任意的$a\in G$，都存在一个元素$b\in G$，使得$a\circ b=b\circ a=e$。 可以看到群并没有要求交换律。如果群内任意元素均满足$a\circ b=b\circ a$，则称该群为阿贝尔群。
 半群： 满足封闭性和结合律，但不满足幺元和逆元。
 1.2 群的同构和同态 同构： 若群$G$和$H$之间存在一个双射$\varphi:G\to H$,使得$f(a)=A$和$f(b)=B$，则有$f(a\circ b)=f(a)\ast f(b)$。
@@ -41,15 +50,34 @@
 特殊欧式群$SE(n)$:
 特殊射影群$SP(n)$
 循环群：
-交换群对称群：n个对象所有的重新排列组成对称群$S_n$，可参考(https://zhuanlan.zhihu.com/p/402197369)
+交换群
+对称群：n个对象所有的重新排列组成对称群$S_n$，可参考(https://zhuanlan.zhihu.com/p/402197369)
 环 2.1 环的定义 如果一个非空集合$R$上定义了两个二元运算$&#43;$和$\times$，分别称为加法和乘法，满足： （1）$(R,&#43;)$是阿贝尔群 （2）$(R,\times)$是半群 （3）乘法对于加法满足左分配律、右分配律，则称$R$ 关于运算$\times$，$&#43;$构成一个环（ring），记为$(R,&#43;,\times)$
-域 "/>
-<meta name="application-name" content="Wangwei&#39;s Home">
-<meta name="apple-mobile-web-app-title" content="Wangwei&#39;s Home"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/basic_concepts/" /><link rel="prev" href="http://localhost:1313/lie_group/" /><link rel="next" href="http://localhost:1313/hw1/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+域 " />
+    <meta name="application-name" content="Wangwei&#39;s Home">
+    <meta name="apple-mobile-web-app-title" content="Wangwei&#39;s Home">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="canonical" href="http://localhost:1313/basic_concepts/" />
+    <link rel="prev" href="http://localhost:1313/lie_group/" />
+    <link rel="next" href="http://localhost:1313/lighting/" />
+    <link rel="stylesheet" href="/css/style.min.css">
+    <link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/lib/fontawesome-free/all.min.css">
+    </noscript>
+    <link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/lib/animate/animate.min.css">
+    </noscript>
+    <script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -71,196 +99,297 @@
                 "name": "wangwei"
             },"description": ""
     }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    </script>
+</head>
 
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
-    <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/" title="Wangwei&#39;s Home"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Wangwei&#39;s Home</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><a class="menu-item" href="/about/"> About </a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a><a href="javascript:void(0);" class="menu-item language" title="Select Language">
-                    <i class="fa fa-globe" aria-hidden="true"></i>                      
-                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/basic_concepts/" selected>English</option></select>
-                </a></div>
-        </div>
-    </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/" title="Wangwei&#39;s Home"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Wangwei&#39;s Home</a>
-            </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        Cancel
-                    </a>
-                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a class="menu-item" href="/about/" title="">About</a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a><a href="javascript:void(0);" class="menu-item" title="Select Language">
-                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/basic_concepts/" selected>English</option></select>
-                </a></div>
-    </div>
-</header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">Contents</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Abstract Algebra</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="../../about" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>wangwei</a></span>&nbsp;<span class="post-category">included in <a href="/categories/math/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Math</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-02-26">2024-02-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;62 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
-                <div class="details-summary toc-title">
-                    <span>Contents</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+<body data-header-desktop="fixed" data-header-mobile="auto">
+    <script
+        type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+    <div id="mask"></div>
+    <div class="wrapper">
+        <header class="desktop" id="header-desktop">
+            <div class="header-wrapper">
+                <div class="header-title">
+                    <a href="/" title="Wangwei&#39;s Home"><span class="header-title-pre"><i
+                                class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Wangwei&#39;s
+                        Home</a>
                 </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#11-群">1.1 群</a></li>
-    <li><a href="#12-群的同构和同态">1.2 群的同构和同态</a></li>
-    <li><a href="#13-常见群">1.3 常见群</a></li>
-    <li><a href="#环">环</a></li>
-    <li><a href="#域">域</a></li>
-  </ul>
-</nav></div>
-            </div><div class="content" id="content"><h1 id="抽象代数">抽象代数</h1>
-<h2 id="11-群">1.1 群</h2>
-<p>满足四个性质：</p>
-<ol>
-<li>封闭性：对于任意的$a,b\in G$，都有$a\circ b\in G$。</li>
-<li>结合律：对于任意的$a,b,c\in G$，都有$(a\circ b)\circ c=a\circ(b\circ c)$。</li>
-<li>幺元：存在一个元素$e\in G$，使得对于任意的$a\in G$，都有$e\circ a=a\circ e=a$。</li>
-<li>逆元：对于任意的$a\in G$，都存在一个元素$b\in G$，使得$a\circ b=b\circ a=e$。</li>
-</ol>
-<p>可以看到群并没有要求交换律。如果群内任意元素均满足$a\circ b=b\circ a$，则称该群为阿贝尔群。</p>
-<p>半群：
-满足封闭性和结合律，但不满足幺元和逆元。</p>
-<h2 id="12-群的同构和同态">1.2 群的同构和同态</h2>
-<p>同构：
-若群$G$和$H$之间存在一个双射$\varphi:G\to H$,使得$f(a)=A$和$f(b)=B$，则有$f(a\circ b)=f(a)\ast f(b)$。</p>
-<blockquote>
-<p>例：群$G(\mathbb{Z}/4\mathbb{Z},+)$和群$H(\left\{1,i,-1,-i\right\},\times)$同构。</p>
-</blockquote>
-<p>同态：
-给定两个群$(G,\circ)$和$(H,\ast)$，如果存在一个映射$\varphi:G\to H$，使得对于任意的$a,b\in G$，都有$\varphi(a\circ b)=\varphi(a)\ast\varphi(b)$，那么称$\varphi$是一个群的同态。因此可以说，同构是满足双射的同态</p>
-<center>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="./pic/homomorphism.png"
-        data-srcset="./pic/homomorphism.png, ./pic/homomorphism.png 1.5x, ./pic/homomorphism.png 2x"
-        data-sizes="auto"
-        alt="./pic/homomorphism.png"
-        title="title" /></p>
-</center>
-<blockquote>
-<p>例1：$f(x)=x^2$是一个从实数到非负实数的同态。<br>
-例2：C3循环群和S3交换群同态，C3循环群和C6循环群同态<center><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="./pic/homomorphism_2.png"
-        data-srcset="./pic/homomorphism_2.png, ./pic/homomorphism_2.png 1.5x, ./pic/homomorphism_2.png 2x"
-        data-sizes="auto"
-        alt="./pic/homomorphism_2.png"
-        title="图源自visual group theory" /></center></p>
-</blockquote>
-<h2 id="13-常见群">1.3 常见群</h2>
-<p>常见矩阵群：
-一般线性群$GL(n)$:其单位元为单位矩阵，逆元为一个矩阵的逆矩阵。</p>
-<p>特殊正交群$SO(n)$:</p>
-<p>特殊欧式群$SE(n)$:</p>
-<p>特殊射影群$SP(n)$</p>
-<p>循环群：</p>
-<p align="center">
-  <img src="./pic/cyclic_group.png" alt="cyclic group">
-</p>
-交换群
-<p align="center">
-  <img src="./pic/alternating_group.png" alt="cyclic group">
-</p>
-<p>对称群：n个对象所有的重新排列组成对称群$S_n$，可参考(<a href="https://zhuanlan.zhihu.com/p/402197369" target="_blank" rel="noopener noreffer ">https://zhuanlan.zhihu.com/p/402197369</a>)</p>
-<p align="center">
-  <img src="./pic/symmetric_group.png" alt="cyclic group">
-</p>
-<h2 id="环">环</h2>
-<p>2.1 环的定义
-如果一个非空集合$R$上定义了两个二元运算$+$和$\times$，分别称为加法和乘法，满足：
-（1）$(R,+)$是阿贝尔群
-（2）$(R,\times)$是半群
-（3）乘法对于加法满足左分配律、右分配律，则称$R$
-关于运算$\times$，$+$构成一个环（ring），记为$(R,+,\times)$</p>
-<h2 id="域">域</h2>
-</div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>Updated on 2024-02-26</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://localhost:1313/basic_concepts/" data-title="Abstract Algebra" data-hashtags="math"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://localhost:1313/basic_concepts/" data-hashtag="math"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/basic_concepts/" data-title="Abstract Algebra"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://localhost:1313/basic_concepts/" data-title="Abstract Algebra"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://localhost:1313/basic_concepts/" data-title="Abstract Algebra"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <div class="menu">
+                    <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item"
+                            href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><a
+                            class="menu-item" href="/about/"> About </a><a class="menu-item"
+                            href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer"
+                            target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i> </a><span
+                            class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                            <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop"
+                                title="Search">
+                                <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                            </a>
+                            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop"
+                                title="Clear">
+                                <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                            </a>
+                            <span class="search-button search-loading" id="search-loading-desktop">
+                                <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                            </span>
+                        </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                            <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                        </a><a href="javascript:void(0);" class="menu-item language" title="Select Language">
+                            <i class="fa fa-globe" aria-hidden="true"></i>
+                            <select class="language-select" id="language-select-desktop"
+                                onchange="location = this.value;">
+                                <option value="/basic_concepts/" selected>English</option>
+                            </select>
+                        </a></div>
+                </div>
             </div>
+        </header>
+        <header class="mobile" id="header-mobile">
+            <div class="header-container">
+                <div class="header-wrapper">
+                    <div class="header-title">
+                        <a href="/" title="Wangwei&#39;s Home"><span class="header-title-pre"><i
+                                    class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Wangwei&#39;s
+                            Home</a>
+                    </div>
+                    <div class="menu-toggle" id="menu-toggle-mobile">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+                <div class="menu" id="menu-mobile">
+                    <div class="search-wrapper">
+                        <div class="search mobile" id="search-mobile">
+                            <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile"
+                                title="Search">
+                                <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                            </a>
+                            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile"
+                                title="Clear">
+                                <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                            </a>
+                            <span class="search-button search-loading" id="search-loading-mobile">
+                                <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                            Cancel
+                        </a>
+                    </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/"
+                        title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a
+                        class="menu-item" href="/about/" title="">About</a><a class="menu-item"
+                        href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer"
+                        target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a
+                        href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                        <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                    </a><a href="javascript:void(0);" class="menu-item" title="Select Language">
+                        <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                        <select class="language-select" onchange="location = this.value;">
+                            <option value="/basic_concepts/" selected>English</option>
+                        </select>
+                    </a>
+                </div>
+            </div>
+        </header>
+        <div class="search-dropdown desktop">
+            <div id="search-dropdown-desktop"></div>
         </div>
+        <div class="search-dropdown mobile">
+            <div id="search-dropdown-mobile"></div>
+        </div>
+        <main class="main">
+            <div class="container">
+                <div class="toc" id="toc-auto">
+                    <h2 class="toc-title">Contents</h2>
+                    <div class="toc-content" id="toc-content-auto"></div>
+                </div>
+                <article class="page single">
+                    <h1 class="single-title animate__animated animate__flipInX">Abstract Algebra</h1>
+                    <div class="post-meta">
+                        <div class="post-meta-line"><span class="post-author"><a href="../../about" title="Author"
+                                    rel="author" class="author"><i class="fas fa-user-circle fa-fw"
+                                        aria-hidden="true"></i>wangwei</a></span>&nbsp;<span
+                                class="post-category">included in <a href="/categories/math/"><i
+                                        class="far fa-folder fa-fw" aria-hidden="true"></i>Math</a></span></div>
+                        <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"
+                                aria-hidden="true"></i>&nbsp;<time datetime="2024-02-26">2024-02-26</time>&nbsp;<i
+                                class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;62 words&nbsp;
+                            <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;
+                        </div>
+                    </div>
+                    <div class="details toc" id="toc-static" data-kept="">
+                        <div class="details-summary toc-title">
+                            <span>Contents</span>
+                            <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                        </div>
+                        <div class="details-content toc-content" id="toc-content-static">
+                            <nav id="TableOfContents">
+                                <ul>
+                                    <li><a href="#11-群">1.1 群</a></li>
+                                    <li><a href="#12-群的同构和同态">1.2 群的同构和同态</a></li>
+                                    <li><a href="#13-常见群">1.3 常见群</a></li>
+                                    <li><a href="#环">环</a></li>
+                                    <li><a href="#域">域</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="content" id="content">
+                        <h1 id="抽象代数">抽象代数</h1>
+                        <h2 id="11-群">1.1 群</h2>
+                        <p>满足四个性质：</p>
+                        <ol>
+                            <li>封闭性：对于任意的$a,b\in G$，都有$a\circ b\in G$。</li>
+                            <li>结合律：对于任意的$a,b,c\in G$，都有$(a\circ b)\circ c=a\circ(b\circ c)$。</li>
+                            <li>幺元：存在一个元素$e\in G$，使得对于任意的$a\in G$，都有$e\circ a=a\circ e=a$。</li>
+                            <li>逆元：对于任意的$a\in G$，都存在一个元素$b\in G$，使得$a\circ b=b\circ a=e$。</li>
+                        </ol>
+                        <p>可以看到群并没有要求交换律。如果群内任意元素均满足$a\circ b=b\circ a$，则称该群为阿贝尔群。</p>
+                        <p>半群：
+                            满足封闭性和结合律，但不满足幺元和逆元。</p>
+                        <h2 id="12-群的同构和同态">1.2 群的同构和同态</h2>
+                        <p>同构：
+                            若群$G$和$H$之间存在一个双射$\varphi:G\to H$,使得$f(a)=A$和$f(b)=B$，则有$f(a\circ b)=f(a)\ast f(b)$。</p>
+                        <blockquote>
+                            <p>例：群$G(\mathbb{Z}/4\mathbb{Z},+)$和群$H(\left\{1,i,-1,-i\right\},\times)$同构。</p>
+                        </blockquote>
+                        <p>同态：
+                            给定两个群$(G,\circ)$和$(H,\ast)$，如果存在一个映射$\varphi:G\to H$，使得对于任意的$a,b\in G$，都有$\varphi(a\circ
+                            b)=\varphi(a)\ast\varphi(b)$，那么称$\varphi$是一个群的同态。因此可以说，同构是满足双射的同态</p>
+                        <center>
+                            <p><img class="lazyload" src="/svg/loading.min.svg" data-src="./pic/homomorphism.png"
+                                    data-srcset="./pic/homomorphism.png, ./pic/homomorphism.png 1.5x, ./pic/homomorphism.png 2x"
+                                    data-sizes="auto" alt="./pic/homomorphism.png" title="title" /></p>
+                        </center>
+                        <blockquote>
+                            <p>例1：$f(x)=x^2$是一个从实数到非负实数的同态。<br>
+                                例2：C3循环群和S3交换群同态，C3循环群和C6循环群同态<center><img class="lazyload" src="/svg/loading.min.svg"
+                                        data-src="./pic/homomorphism_2.png"
+                                        data-srcset="./pic/homomorphism_2.png, ./pic/homomorphism_2.png 1.5x, ./pic/homomorphism_2.png 2x"
+                                        data-sizes="auto" alt="./pic/homomorphism_2.png"
+                                        title="图源自visual group theory" /></center>
+                            </p>
+                        </blockquote>
+                        <h2 id="13-常见群">1.3 常见群</h2>
+                        <p>常见矩阵群：
+                            一般线性群$GL(n)$:其单位元为单位矩阵，逆元为一个矩阵的逆矩阵。</p>
+                        <p>特殊正交群$SO(n)$:</p>
+                        <p>特殊欧式群$SE(n)$:</p>
+                        <p>特殊射影群$SP(n)$</p>
+                        <p>循环群：</p>
+                        <p align="center">
+                            <img src="./pic/cyclic_group.png" alt="cyclic group">
+                        </p>
+                        交换群
+                        <p align="center">
+                            <img src="./pic/alternating_group.png" alt="cyclic group">
+                        </p>
+                        <p>对称群：n个对象所有的重新排列组成对称群$S_n$，可参考(<a href="https://zhuanlan.zhihu.com/p/402197369"
+                                target="_blank" rel="noopener noreffer ">https://zhuanlan.zhihu.com/p/402197369</a>)</p>
+                        <p align="center">
+                            <img src="./pic/symmetric_group.png" alt="cyclic group">
+                        </p>
+                        <h2 id="环">环</h2>
+                        <p>2.1 环的定义
+                            如果一个非空集合$R$上定义了两个二元运算$+$和$\times$，分别称为加法和乘法，满足：
+                            （1）$(R,+)$是阿贝尔群
+                            （2）$(R,\times)$是半群
+                            （3）乘法对于加法满足左分配律、右分配律，则称$R$
+                            关于运算$\times$，$+$构成一个环（ring），记为$(R,+,\times)$</p>
+                        <h2 id="域">域</h2>
+                    </div>
+                    <div class="post-footer" id="post-footer">
+                        <div class="post-info">
+                            <div class="post-info-line">
+                                <div class="post-info-mod">
+                                    <span>Updated on 2024-02-26</span>
+                                </div>
+                            </div>
+                            <div class="post-info-line">
+                                <div class="post-info-md"></div>
+                                <div class="post-info-share">
+                                    <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter"
+                                            data-url="http://localhost:1313/basic_concepts/"
+                                            data-title="Abstract Algebra" data-hashtags="math"><i
+                                                class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a
+                                            href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook"
+                                            data-url="http://localhost:1313/basic_concepts/" data-hashtag="math"><i
+                                                class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a
+                                            href="javascript:void(0);" title="Share on Hacker News"
+                                            data-sharer="hackernews" data-url="http://localhost:1313/basic_concepts/"
+                                            data-title="Abstract Algebra"><i class="fab fa-hacker-news fa-fw"
+                                                aria-hidden="true"></i></a><a href="javascript:void(0);"
+                                            title="Share on Line" data-sharer="line"
+                                            data-url="http://localhost:1313/basic_concepts/"
+                                            data-title="Abstract Algebra"><i
+                                                data-svg-src="/lib/simple-icons/icons/line.min.svg"
+                                                aria-hidden="true"></i></a><a href="javascript:void(0);"
+                                            title="Share on 微博" data-sharer="weibo"
+                                            data-url="http://localhost:1313/basic_concepts/"
+                                            data-title="Abstract Algebra"><i class="fab fa-weibo fa-fw"
+                                                aria-hidden="true"></i></a></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="post-info-more">
+                            <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a
+                                    href="/tags/math/">Math</a></section>
+                            <section>
+                                <span><a href="javascript:void(0);"
+                                        onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a
+                                        href="/">Home</a></span>
+                            </section>
+                        </div>
+
+                        <div class="post-nav"><a href="/lie_group/" class="prev" rel="prev" title="Lie Group"><i
+                                    class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Lie Group</a>
+                            <a href="/lighting/" class="next" rel="next" title="PBR">PBR<i
+                                    class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </main>
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer"
+                        title="Hugo 0.123.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt"
+                        target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i
+                            class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div>
+                <div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i
+                        class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 -
+                        2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="../../about"
+                            target="_blank">wangwei</a></span>&nbsp;|&nbsp;<span class="license"><a
+                            rel="license external nofollow noopener noreffer"
+                            href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC
+                            4.0</a></span></div>
+            </div>
+        </footer>
     </div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/math/">Math</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
-        </section>
+    <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+            <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+            <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+        </a>
     </div>
+    <link rel="stylesheet" href="/lib/katex/katex.min.css">
+    <script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script>
+    <script type="text/javascript" src="/lib/lunr/lunr.min.js"></script>
+    <script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script>
+    <script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script>
+    <script type="text/javascript" src="/lib/sharer/sharer.min.js"></script>
+    <script type="text/javascript" src="/lib/katex/katex.min.js"></script>
+    <script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script>
+    <script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script>
+    <script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script>
+    <script
+        type="text/javascript">window.config = { "code": { "copyTitle": "Copy to clipboard", "maxShownLines": 50 }, "comment": {}, "math": { "delimiters": [{ "display": true, "left": "$$", "right": "$$" }, { "display": true, "left": "\\[", "right": "\\]" }, { "display": true, "left": "\\begin{equation}", "right": "\\end{equation}" }, { "display": true, "left": "\\begin{equation*}", "right": "\\end{equation*}" }, { "display": true, "left": "\\begin{align}", "right": "\\end{align}" }, { "display": true, "left": "\\begin{align*}", "right": "\\end{align*}" }, { "display": true, "left": "\\begin{alignat}", "right": "\\end{alignat}" }, { "display": true, "left": "\\begin{alignat*}", "right": "\\end{alignat*}" }, { "display": true, "left": "\\begin{gather}", "right": "\\end{gather}" }, { "display": true, "left": "\\begin{CD}", "right": "\\end{CD}" }, { "display": false, "left": "$", "right": "$" }, { "display": false, "left": "\\(", "right": "\\)" }], "strict": false }, "search": { "highlightTag": "em", "lunrIndexURL": "/index.json", "maxResultLength": 10, "noResultsFound": "No results found", "snippetLength": 30, "type": "lunr" } };</script>
+    <script type="text/javascript" src="/js/theme.min.js"></script>
+</body>
 
-    <div class="post-nav"><a href="/lie_group/" class="prev" rel="prev" title="Lie Group"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Lie Group</a>
-            <a href="/hw1/" class="next" rel="next" title="Abstract Algebra">Abstract Algebra<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
-</div>
-</article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.123.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="../../about" target="_blank">wangwei</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
-        </div>
-    </footer></div>
-
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>

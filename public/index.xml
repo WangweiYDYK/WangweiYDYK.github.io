@@ -4,9 +4,32 @@
         <link>http://localhost:1313/</link>
         <description>Wangwei&#39;s Home</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>1028963346@qq.com (wangwei)</managingEditor>
-            <webMaster>1028963346@qq.com (wangwei)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 26 Feb 2024 19:08:59 &#43;0800</lastBuildDate>
+            <webMaster>1028963346@qq.com (wangwei)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 22 Feb 2025 13:38:09 &#43;0800</lastBuildDate>
             <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Lighting</title>
+    <link>http://localhost:1313/lighting/</link>
+    <pubDate>Sat, 22 Feb 2025 13:38:09 &#43;0800</pubDate>
+    <author>wangwei</author>
+    <guid>http://localhost:1313/lighting/</guid>
+    <description><![CDATA[Lighting Phong $$L = L_{a} + L_{d} + L_{s}$$
+环境光（Ambient） 环境光也称间接光，是光线经过周围环境表面多次反射后形成的，利用它可以描述一块区域的亮度，在光照模型中，通常用一个常量来表示。
+漫反射（Diffuse） 兰伯特余弦定律(Lambert Consine Law)中指出漫反射的大小取决于表面法线和光线的夹角，当夹角越大时，漫反射分量越小，当夹角接近90度时，我们认为漫反射几乎为零。 $$L_d = k_d(I/r^2)max(0, n \cdot L)$$
+高光反射（Specular） Phong模型认为高光反射的强度与反射光线R和观察角度v之间夹角的余弦值成正比 $$L_s = k_s(I/r^2)max(0, v \cdot R)^n$$
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 #version 330 core out vec4 FragColor; in vec3 Normal; in vec3 FragPos; uniform vec3 lightPos; uniform vec3 viewPos; uniform vec3 lightColor; uniform vec3 objectColor; void main() { // ambient float ambientStrength = 0.]]></description>
+</item>
+<item>
+    <title>Shadow</title>
+    <link>http://localhost:1313/shadowmap/</link>
+    <pubDate>Sat, 22 Feb 2025 13:38:09 &#43;0800</pubDate>
+    <author>wangwei</author>
+    <guid>http://localhost:1313/shadowmap/</guid>
+    <description><![CDATA[Shadow 光照贴图 Shadow Map Shadow Map存在的问题：
+Shadow Acne
+Shadow Bias
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 float ShadowCalculation(vec4 fragPosLightSpace) { // 执行透视除法，将裁切空间坐标的范围-w到w转为-1到1。当使用正交投影矩阵，顶点w元素仍保持不变，所以这一步实际上毫无意义。可是，当使用透视投影的时候就是必须的了，所以为了保证在两种投影矩阵下都有效就得留着这行。 vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w; // 变换到[0,1]的范围 projCoords = projCoords * 0.5 + 0.5; // 取得最近点的深度(使用[0,1]范围下的fragPosLight当坐标) float closestDepth = texture(shadowMap, projCoords.xy).r; // 取得当前片段在光源视角下的深度 float currentDepth = projCoords.z; // 检查当前片段是否在阴影中 float shadow = currentDepth &gt; closestDepth ? 1.0 : 0.]]></description>
+</item>
+<item>
     <title>Abstract Algebra</title>
     <link>http://localhost:1313/hw1/</link>
     <pubDate>Mon, 26 Feb 2024 19:08:59 &#43;0800</pubDate>
