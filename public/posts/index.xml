@@ -49,6 +49,17 @@ Tablelog（日本大众点评）
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 void DistanceField3D::getDistance(const vec3f&amp; p, REAL&amp; d, vec3f&amp; normal) { // get cell and lerp values vec3f fp = (p - m_left) * vec3f(1.]]></description>
 </item>
 <item>
+    <title>SDF</title>
+    <link>http://localhost:1313/sdf/</link>
+    <pubDate>Sat, 22 Feb 2025 13:38:09 &#43;0800</pubDate>
+    <author>wangwei</author>
+    <guid>http://localhost:1313/sdf/</guid>
+    <description><![CDATA[SDF 构建方式 基础存储格式 1 2 3 4 5 6 7 8 9 10 class DistanceField3D { // Lower left corner vec3f m_left; // grid spacing vec3f m_h; int nbx, nby, nbz; float* distance; }; 距离查询 预生成的三维有向距离场（SDF）中查询任意点的平滑距离值和法线方向
+距离采用三线性插值
+法线方向通过中心差分法估算SDF的梯度，梯度近似公式可以表示为 $$\nabla \mathrm{SDF} \approx\left(\frac{\partial d}{\partial x}, \frac{\partial d}{\partial y}, \frac{\partial d}{\partial z}\right)$$
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 void DistanceField3D::getDistance(const vec3f&amp; p, REAL&amp; d, vec3f&amp; normal) { // get cell and lerp values vec3f fp = (p - m_left) * vec3f(1.]]></description>
+</item>
+<item>
     <title>Shadow</title>
     <link>http://localhost:1313/shadowmap/</link>
     <pubDate>Sat, 22 Feb 2025 13:38:09 &#43;0800</pubDate>
@@ -78,7 +89,8 @@ Shadow Bias
 特殊欧式群$SE(n)$:
 特殊射影群$SP(n)$
 循环群：
-交换群对称群：n个对象所有的重新排列组成对称群$S_n$，可参考(https://zhuanlan.zhihu.com/p/402197369)
+交换群
+对称群：n个对象所有的重新排列组成对称群$S_n$，可参考(https://zhuanlan.zhihu.com/p/402197369)
 环 2.1 环的定义 如果一个非空集合$R$上定义了两个二元运算$+$和$\times$，分别称为加法和乘法，满足： （1）$(R,+)$是阿贝尔群 （2）$(R,\times)$是半群 （3）乘法对于加法满足左分配律、右分配律，则称$R$ 关于运算$\times$，$+$构成一个环（ring），记为$(R,+,\times)$
 域 ]]></description>
 </item>

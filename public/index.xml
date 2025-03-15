@@ -5,6 +5,7 @@
         <description>Wangwei&#39;s Home</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>1028963346@qq.com (wangwei)</managingEditor>
             <webMaster>1028963346@qq.com (wangwei)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 15 Mar 2025 11:42:09 &#43;0800</lastBuildDate>
+            <webMaster>1028963346@qq.com (wangwei)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 15 Mar 2025 11:42:09 &#43;0800</lastBuildDate>
             <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
         <item>
     <title>Japan</title>
@@ -80,7 +81,8 @@ Shadow Bias
 特殊欧式群$SE(n)$:
 特殊射影群$SP(n)$
 循环群：
-交换群对称群：n个对象所有的重新排列组成对称群$S_n$，可参考(https://zhuanlan.zhihu.com/p/402197369)
+交换群
+对称群：n个对象所有的重新排列组成对称群$S_n$，可参考(https://zhuanlan.zhihu.com/p/402197369)
 环 2.1 环的定义 如果一个非空集合$R$上定义了两个二元运算$+$和$\times$，分别称为加法和乘法，满足： （1）$(R,+)$是阿贝尔群 （2）$(R,\times)$是半群 （3）乘法对于加法满足左分配律、右分配律，则称$R$ 关于运算$\times$，$+$构成一个环（ring），记为$(R,+,\times)$
 域 ]]></description>
 </item>

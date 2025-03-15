@@ -5,6 +5,9 @@
             <loc>http://localhost:1313/tokyo/</loc><lastmod>2025-03-15T11:42:09&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>http://localhost:1313/posts/</loc><lastmod>2025-03-15T11:42:09&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>http://localhost:1313/</loc><lastmod>2025-03-15T11:42:09&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>http://localhost:1313/tokyo/</loc><lastmod>2025-03-15T11:42:09&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://localhost:1313/posts/</loc><lastmod>2025-03-15T11:42:09&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://localhost:1313/</loc><lastmod>2025-03-15T11:42:09&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="http://localhost:1313/zh-cn/"
@@ -49,5 +52,7 @@
             <loc>http://localhost:1313/about/</loc><lastmod>2023-06-09T22:38:34&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://localhost:1313/ccd/</loc><lastmod>2023-05-01T19:08:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://localhost:1313/cub/</loc><lastmod>2023-04-17T11:23:09&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>http://localhost:1313/bvh/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>http://localhost:1313/mai/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url></urlset>
             <loc>http://localhost:1313/bvh/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://localhost:1313/mai/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url></urlset>
