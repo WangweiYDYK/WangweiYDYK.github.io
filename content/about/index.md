@@ -31,10 +31,4 @@ img {
 }
 </style>
 
-<center>
-
-![title](./pic/about.png)
-
-</center>
-
 </div>
