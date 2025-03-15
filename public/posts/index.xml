@@ -4,7 +4,28 @@
         <link>http://localhost:1313/posts/</link>
         <description>All Posts | Wangwei&#39;s Home</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>1028963346@qq.com (wangwei)</managingEditor>
-            <webMaster>1028963346@qq.com (wangwei)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 22 Feb 2025 13:38:09 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>1028963346@qq.com (wangwei)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 15 Mar 2025 11:42:09 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Japan</title>
+    <link>http://localhost:1313/tokyo/</link>
+    <pubDate>Sat, 15 Mar 2025 11:42:09 &#43;0800</pubDate>
+    <author>wangwei</author>
+    <guid>http://localhost:1313/tokyo/</guid>
+    <description><![CDATA[日本 必备物品 交通 JR Pass（七日券）
+Tablelog（日本大众点评）
+西瓜卡
+东京 秋叶原 假面骑士专卖店
+一番赏抽取
+东京国立博物馆 闭馆日：星期一（如遇法定节假日则开馆，翌日工作日闭馆）
+开馆时间：9:30-17:00
+购票链接：东京国立博物馆
+主馆正门左边可以制作浮世绘
+浅草寺 东京塔 适合晚上去
+涉谷PARCO 营业时间 百货商店 11:00～21:00、餐厅 11:30～23:00
+6楼卡普空，宝可梦
+京都 伏见稻荷大社 大版 心斋桥 奈良 奈良公园 喂食野生鹿群
+大版海游馆]]></description>
+</item>
+<item>
     <title>Lighting</title>
     <link>http://localhost:1313/lighting/</link>
     <pubDate>Sat, 22 Feb 2025 13:38:09 &#43;0800</pubDate>
@@ -17,6 +38,17 @@
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 #version 330 core out vec4 FragColor; in vec3 Normal; in vec3 FragPos; uniform vec3 lightPos; uniform vec3 viewPos; uniform vec3 lightColor; uniform vec3 objectColor; void main() { // ambient float ambientStrength = 0.]]></description>
 </item>
 <item>
+    <title>SDF</title>
+    <link>http://localhost:1313/sdf/</link>
+    <pubDate>Sat, 22 Feb 2025 13:38:09 &#43;0800</pubDate>
+    <author>wangwei</author>
+    <guid>http://localhost:1313/sdf/</guid>
+    <description><![CDATA[SDF 构建方式 基础存储格式 1 2 3 4 5 6 7 8 9 10 class DistanceField3D { // Lower left corner vec3f m_left; // grid spacing vec3f m_h; int nbx, nby, nbz; float* distance; }; 距离查询 预生成的三维有向距离场（SDF）中查询任意点的平滑距离值和法线方向
+距离采用三线性插值
+法线方向通过中心差分法估算SDF的梯度，梯度近似公式可以表示为 $$\nabla \mathrm{SDF} \approx\left(\frac{\partial d}{\partial x}, \frac{\partial d}{\partial y}, \frac{\partial d}{\partial z}\right)$$
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 void DistanceField3D::getDistance(const vec3f&amp; p, REAL&amp; d, vec3f&amp; normal) { // get cell and lerp values vec3f fp = (p - m_left) * vec3f(1.]]></description>
+</item>
+<item>
     <title>Shadow</title>
     <link>http://localhost:1313/shadowmap/</link>
     <pubDate>Sat, 22 Feb 2025 13:38:09 &#43;0800</pubDate>
@@ -26,16 +58,6 @@
 Shadow Acne
 Shadow Bias
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 float ShadowCalculation(vec4 fragPosLightSpace) { // 执行透视除法，将裁切空间坐标的范围-w到w转为-1到1。当使用正交投影矩阵，顶点w元素仍保持不变，所以这一步实际上毫无意义。可是，当使用透视投影的时候就是必须的了，所以为了保证在两种投影矩阵下都有效就得留着这行。 vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w; // 变换到[0,1]的范围 projCoords = projCoords * 0.5 + 0.5; // 取得最近点的深度(使用[0,1]范围下的fragPosLight当坐标) float closestDepth = texture(shadowMap, projCoords.xy).r; // 取得当前片段在光源视角下的深度 float currentDepth = projCoords.z; // 检查当前片段是否在阴影中 float shadow = currentDepth &gt; closestDepth ? 1.0 : 0.]]></description>
-</item>
-<item>
-    <title>Abstract Algebra</title>
-    <link>http://localhost:1313/hw1/</link>
-    <pubDate>Mon, 26 Feb 2024 19:08:59 &#43;0800</pubDate>
-    <author>wangwei</author>
-    <guid>http://localhost:1313/hw1/</guid>
-    <description><![CDATA[hw1 Q2 a $a\circ b\in G$。 $$\mathbf{A}x = \lambda x$$ $$\mathbf{A}^n x = \lambda ^ n x$$ $$ k\mathbf{A}^n x = k \lambda ^ n x$$ $$(c_k \mathbf{A}^k + c_{k-1} \mathbf{A}^{k-1} + \cdots + c_1 \mathbf{A} + c_0 \mathbf{I})x = (c_k \lambda^k + c_{k-1} \lambda^{k-1} + \cdots + c_1 \lambda + c_0 )x$$ 即有 f(λ) 为 f(A) 的特征值。
-c $$e^{\mathbf{A}}= \sum_{k=0}^{\infty} \frac{1}{k!} \mathbf{P}^{-1}\Lambda^{k} \mathbf{P}= \mathbf{P}^{-1}(\sum_{k=0}^{\infty} \frac{1}{k!}\Lambda^{k}) \mathbf{P}$$
-$$e^{\mathbf{A}^T}= \sum_{k=0}^{\infty} \frac{1}{k!} \mathbf{P}^{T}\Lambda^{k} \mathbf{P}^{-1^T}= \mathbf{P}^{T}(\sum_{k=0}^{\infty} \frac{1}{k!]]></description>
 </item>
 <item>
     <title>Abstract Algebra</title>
@@ -132,16 +154,6 @@ $$ \begin{equation*} \begin{split} \int_{\Omega}L(u)\delta u \ d\Omega &amp; = \
 false negatives a collision is not reported when there is a collision
 Multivariate CCD Formulation $$\begin{align*} &amp;F_{\mathrm{vf}}(t, u, v)=p(t)-\left((1-u-v) v_1(t)+u v_2(t)+v v_3(t)\right)\\ &amp;F_{\mathrm{vf}}: \Omega_{\mathrm{vf}}=[0,1] \times\{u, v \geqslant 0 \mid u+v \leqslant 1\} \rightarrow \mathbb{R}^3\\ &amp;F_{\mathrm{ee}}(t, u, v)=\left((1-u) p_1(t)+u p_2(t)\right)-\left((1-v) p_3(t)+v p_4(t)\right)\\ &amp;F_{\mathrm{ee}}: \Omega_{\mathrm{ee}}=[0,1] \times[0,1]^2 \rightarrow \mathbb{R}^3 \end{align*}$$
 Univariate CCD Formulation Normal Cone test 给定连续曲面S以及其边界C，若其不自交，则必须通过surface normal test和contour test]]></description>
-</item>
-<item>
-    <title>Reduction</title>
-    <link>http://localhost:1313/cub/</link>
-    <pubDate>Mon, 17 Apr 2023 11:23:09 &#43;0800</pubDate>
-    <author>wangwei</author>
-    <guid>http://localhost:1313/cub/</guid>
-    <description><![CDATA[Reduction 概念 可以将Reduce操作视为计算$x = x_0\oplus x_1\oplus x_2\oplus &hellip;\oplus x_n$，$\oplus $作为算子可以表示为乘法，加法，最小值等运算
-简易版Reduce
-1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 //一个基础的Reduce操作,源自NVDIA的教程 __global__ void reduce0(int* g_idata, int* g_odata) { extern __shared__ int sdata[]; unsigned int tid = threadIdx.x; unsigned int i = blockIdx.x*blockDim.x + threadIdx.x; sdata[tid] = g_idata[i]; __syncthreads(); for(unsigned int s=1; s &lt; blockDim.x; s *= 2) { // 此处有warp divergent，并非所有thread都可以进入这个分支中，会造成硬件资源的浪费 // 其次取模操作需要消耗大量计算时间 if(tid % (2*s) == 0) { sdata[tid] += sdata[tid + s]; } __syncthreads(); } if(tid == 0) { g_odata[blockIdx.]]></description>
 </item>
 </channel>
 </rss>
